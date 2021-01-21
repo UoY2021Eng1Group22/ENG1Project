@@ -11,7 +11,17 @@ public enum BoatType {
     FAST(50, 120, 85, 275, "fast.png"),
     AGILE(50, 120, 95, 245, "agile.png"),
     ENDURANCE(70, 180, 90, 245, "endurance.png"),
-    STRONG(100, 105, 98, 200, "strong.png");
+    STRONG(100, 105, 98, 200, "strong.png"),
+
+    FASTEASY(60, 144, 102, 330, "fast.png"),
+    AGILEEASY(60, 144, 114, 292, "agile.png"),
+    ENDURANCEEASY(84, 216, 108, 294, "endurance.png"),
+    STRONGEASY(120, 126, 118, 240, "strong.png"),
+
+    FASTHARD(40, 96, 68, 220, "fast.png"),
+    AGILEHARD(40, 96, 76, 196, "agile.png"),
+    ENDURANCEHARD(56, 144, 72, 196, "endurance.png"),
+    STRONGHARD(80, 84, 78, 160, "strong.png");
 
     private final float health;
     private final float stamina;

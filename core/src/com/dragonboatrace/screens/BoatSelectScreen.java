@@ -141,13 +141,13 @@ public class BoatSelectScreen implements Screen {
         this.enduranceButton.render(this.game.getBatch());
 
         if (this.fastButton.isHovering() && Gdx.input.isTouched()) {
-            this.game.setScreen(new MainGameScreen(this.game, BoatType.FAST));
+            this.game.setScreen(new DifficultySelectScreen(this.game, "fast"));
         } else if (this.agileButton.isHovering() && Gdx.input.isTouched()) {
-            this.game.setScreen(new MainGameScreen(this.game, BoatType.AGILE));
+            this.game.setScreen(new DifficultySelectScreen(this.game, "agile"));
         } else if (this.strongButton.isHovering() && Gdx.input.isTouched()) {
-            this.game.setScreen(new MainGameScreen(this.game, BoatType.STRONG));
+            this.game.setScreen(new DifficultySelectScreen(this.game, "strong"));
         } else if (this.enduranceButton.isHovering() && Gdx.input.isTouched()) {
-            this.game.setScreen(new MainGameScreen(this.game, BoatType.ENDURANCE));
+            this.game.setScreen(new DifficultySelectScreen(this.game, "endurance"));
         }
 
 
