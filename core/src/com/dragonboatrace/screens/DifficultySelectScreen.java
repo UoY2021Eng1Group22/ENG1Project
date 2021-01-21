@@ -82,9 +82,9 @@ public class DifficultySelectScreen implements Screen {
         this.mediumButton = new Button(new Vector2(spacing + (buttonWidth + spacing), 100), "medium_button_active.png", "medium_button_inactive.png");
         this.hardButton = new Button(new Vector2(spacing + (buttonWidth + spacing) * 2, 100), "hard_button_active.png", "hard_button_inactive.png");
 
-        this.easyImage = new Texture("strong.png");
-        this.mediumImage = new Texture("agile.png");
-        this.hardImage = new Texture("fast.png");
+        this.easyImage = new Texture("easy_difficulty.png");
+        this.mediumImage = new Texture("medium_difficulty.png");
+        this.hardImage = new Texture("hard_difficulty.png");
 
 
 

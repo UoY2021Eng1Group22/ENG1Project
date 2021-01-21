@@ -17,7 +17,7 @@ public class DesktopLauncher {
         config.fullscreen = Settings.FULLSCREEN;
         config.resizable = true;
         config.vSyncEnabled = false;
-        config.foregroundFPS = 60;
+        config.foregroundFPS = 30;
         new LwjglApplication(new DragonBoatRace(), config);
     }
 }
