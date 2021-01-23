@@ -9,7 +9,12 @@ public enum ObstacleType {
     /* ENUM(texture, speed, damage)*/
     ROCK("rock.png", 50, 20),
     BRANCH("branch.png", 60, 10),
-    LEAF("leaf.png", 75, 5);
+    LEAF("leaf.png", 75, 5),
+    HEAL("heal.png",50,-30),
+    SPEED("speed.png",50,0),
+    STAMINA("stamina.png",50,0);
+
+
 
     /**
      * The texture of the obstacle.

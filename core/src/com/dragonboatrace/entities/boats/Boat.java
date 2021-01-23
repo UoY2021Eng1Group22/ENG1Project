@@ -303,8 +303,29 @@ public class Boat extends Entity {
             if (obstacle.getHitBox().collidesWith(this.hitbox)) {
                 obstacle.dispose();
                 this.lane.removeObstacle(obstacle);
-                size--;
-                this.health -= obstacle.getDamage();
+
+                switch (obstacle.getType().getTexture()){
+                    case "stamina.png":
+                        regenerateStamina();
+                        return false;
+                    case "speed.png":
+                        this.speed+=30;
+                        return false;
+                    case "heal.png":
+                        if (( this.health -= obstacle.getDamage())> this.boatType.getHealth()){
+                            this.health = this.boatType.getHealth();
+                        }
+                        else {
+                            this.health-=obstacle.getDamage();
+                        }
+                        return false;
+                    default:
+                        size--;
+                        this.health -= obstacle.getDamage();
+                }
+
+
+
                 return true;
             }
         }

@@ -21,6 +21,9 @@ public class Obstacle extends Entity {
      */
     private final float damage;
 
+    // New variable to store the obstacles type.
+    private final ObstacleType type;
+
     /**
      * Creates a new Obstacle of a specific type and bounds in which it can be created.
      *
@@ -35,6 +38,9 @@ public class Obstacle extends Entity {
         super(new Vector2(((int) startX + width) / 2.0f + ThreadLocalRandom.current().nextInt(-((int) startX + width) / 2 + EntityType.OBSTACLE.getWidth() / 2, ((int) startX + width) / 2 + EntityType.OBSTACLE.getWidth() / 2), Gdx.graphics.getHeight()), new Vector2(), EntityType.OBSTACLE, type.getTexture());
         this.speed = type.getSpeed();
         this.damage = type.getDamage();
+
+        // the obstacles type
+        this.type = type;
     }
 
     /**
@@ -66,6 +72,9 @@ public class Obstacle extends Entity {
         return this.damage;
     }
 
+
+
+
     /**
      * The position of the obstacle.
      *
@@ -73,6 +82,11 @@ public class Obstacle extends Entity {
      */
     public Vector2 getPos() {
         return this.position;
+    }
+
+    // returns the Obstacles type
+    public ObstacleType getType() {
+        return this.type;
     }
 
 }
