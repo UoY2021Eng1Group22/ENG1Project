@@ -1,6 +1,7 @@
 package com.dragonboatrace.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.FPSLogger;
@@ -141,6 +142,11 @@ public class MainGameScreen implements Screen {
             displayCountDown();
         }
         this.game.getBatch().end();
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            this.paused = true;
+            this.game.setScreen(new PauseScreen(this.game, this));
+        }
     }
 
     /**
