@@ -306,7 +306,12 @@ public class Boat extends Entity {
 
                 switch (obstacle.getType().getTexture()){
                     case "stamina.png":
-                        regenerateStamina();
+
+                        if ( this.stamina + 50 > this.boatType.getStamina()){
+                            this.stamina = this.boatType.getStamina();
+                        } else {
+                            this.stamina+=50;
+                        }
                         return false;
                     case "speed.png":
                         this.speed+=30;
