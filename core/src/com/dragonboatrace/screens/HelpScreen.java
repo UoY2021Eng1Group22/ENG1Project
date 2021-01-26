@@ -171,7 +171,7 @@ public class HelpScreen implements Screen {
      * @param delta The time passed since the last frame.
      */
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 1, 1);
+        Gdx.gl.glClearColor(32.0f/255.0f, 96.0f/255.0f, 184.0f/255.0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         batch.draw(this.helpInfo, padding, currPos, Gdx.graphics.getWidth() - 2 * padding, (float) this.helpInfo.getHeight() / Settings.SCALAR);
