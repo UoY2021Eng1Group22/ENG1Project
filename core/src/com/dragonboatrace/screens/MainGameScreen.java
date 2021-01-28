@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.utils.Timer;
 import com.dragonboatrace.DragonBoatRace;
 import com.dragonboatrace.entities.boats.BoatType;
+import com.dragonboatrace.tools.GsonTool;
 import com.dragonboatrace.tools.Race;
 import com.dragonboatrace.tools.ScrollingBackground;
 import com.dragonboatrace.tools.Settings;
@@ -64,6 +65,8 @@ public class MainGameScreen implements Screen {
      */
     private String countDownString = "";
 
+    private GsonTool gtool = new GsonTool();
+
     /**
      * Creates a new game screen with a game instance.
      *
@@ -115,6 +118,17 @@ public class MainGameScreen implements Screen {
     }
 
     /**
+     * Constructor for game restore function
+     * @param game
+     * @param race
+     */
+//    public MainGameScreen(DragonBoatRace game, Race race) {
+//        this.game = game;
+//        this.logger = new FPSLogger();
+//
+//    }
+
+    /**
      * Runs when the window first starts. Runs the countdown starter.
      */
     public void show() {
@@ -143,9 +157,13 @@ public class MainGameScreen implements Screen {
         }
         this.game.getBatch().end();
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            this.paused = true;
-            this.game.setScreen(new PauseScreen(this.game, this));
+//        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+//            this.paused = true;
+//            this.game.setScreen(new PauseScreen(this.game, this));
+//        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
+            Gdx.app.log("serialise", gtool.toJsonString(this.race.getBoats()));
         }
     }
 

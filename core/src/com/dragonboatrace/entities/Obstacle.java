@@ -22,25 +22,25 @@ public class Obstacle extends Entity {
     private final float damage;
 
     // New variable to store the obstacles type.
-    private final ObstacleType type;
+    private final ObstacleType obstacleType;
 
     /**
      * Creates a new Obstacle of a specific type and bounds in which it can be created.
      *
-     * @param type   The type of obstacle.
+     * @param obstacleType   The type of obstacle.
      * @param startX The starting x value the obstacle can be created in.
      * @param width  How far from startX the obstacle can be created.
      */
-    public Obstacle(ObstacleType type, float startX, int width) {
+    public Obstacle(ObstacleType obstacleType, float startX, int width) {
         /* Entity creation */
         /* First vector is long as to start it at a random x position within the bounds of the screen */
         /* Form of Entity(Vector2 pos, Vector2 vel, EntityType type, String texture) */
-        super(new Vector2(((int) startX + width) / 2.0f + ThreadLocalRandom.current().nextInt(-((int) startX + width) / 2 + EntityType.OBSTACLE.getWidth() / 2, ((int) startX + width) / 2 + EntityType.OBSTACLE.getWidth() / 2), Gdx.graphics.getHeight()), new Vector2(), EntityType.OBSTACLE, type.getTexture());
-        this.speed = type.getSpeed();
-        this.damage = type.getDamage();
+        super(new Vector2(((int) startX + width) / 2.0f + ThreadLocalRandom.current().nextInt(-((int) startX + width) / 2 + EntityType.OBSTACLE.getWidth() / 2, ((int) startX + width) / 2 + EntityType.OBSTACLE.getWidth() / 2), Gdx.graphics.getHeight()), new Vector2(), EntityType.OBSTACLE, obstacleType.getTexture());
+        this.speed = obstacleType.getSpeed();
+        this.damage = obstacleType.getDamage();
 
         // the obstacles type
-        this.type = type;
+        this.obstacleType = obstacleType;
     }
 
     /**
@@ -85,8 +85,8 @@ public class Obstacle extends Entity {
     }
 
     // returns the Obstacles type
-    public ObstacleType getType() {
-        return this.type;
+    public ObstacleType getObstacleType() {
+        return this.obstacleType;
     }
 
 }

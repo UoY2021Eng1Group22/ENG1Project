@@ -249,4 +249,15 @@ public class Race {
         this.theFinish.dispose();
         this.barrier.dispose();
     }
+
+    // ===
+
+    public ArrayList<Boat> getBoats() {
+        return boats;
+    }
+
+    public FinishLine getFinishLine() {
+        return theFinish;
+    }
+
 }
