@@ -312,7 +312,7 @@ public class Boat extends Entity {
                 obstacle.dispose();
                 this.lane.removeObstacle(obstacle);
 
-                switch (obstacle.getType().getTexture()){
+                switch (obstacle.getObstacleType().getTexture()){
                     case "stamina.png":
 
                         if ( this.stamina + 50 > this.boatType.getStamina()){

@@ -67,10 +67,10 @@ public class PauseScreen implements Screen {
             this.game.setScreen(this.prevScreen);
         }
 
-        saveButton.render(this.game.getBatch());
-        if (saveButton.isHovering() && Gdx.input.isTouched()) {
-            (new SaveRestore()).Save();
-        }
+//        saveButton.render(this.game.getBatch());
+//        if (saveButton.isHovering() && Gdx.input.isTouched()) {
+//            (new SaveRestore()).Save();
+//        }
 
         menuButton.render(this.game.getBatch());
         if (menuButton.isHovering() && Gdx.input.isTouched()) {

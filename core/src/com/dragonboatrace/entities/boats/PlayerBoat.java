@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragonboatrace.tools.Lane;
 import com.dragonboatrace.tools.Settings;
 
+import java.io.Serializable;
+
 /**
  * Represents a specific Player controlled Boat.
  *
