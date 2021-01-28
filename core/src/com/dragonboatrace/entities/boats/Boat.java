@@ -141,6 +141,12 @@ public class Boat extends Entity {
     protected BitmapFont nameFont;
 
     /**
+     * New attribute which marks if the boat has a shield
+     */
+    protected boolean shield;
+
+
+    /**
      * Creates a Boat with the specified BoatType for pre-defined values,
      * a Lane to give the boat its position and a name for easy identification.
      *
@@ -162,6 +168,8 @@ public class Boat extends Entity {
         this.time = 0;
         this.totalTime = 0;
         this.penaltyTime = 0;
+
+        this.shield= false;
 
         /* Store the lanes hit box to save time on using Getters. */
         laneBox = lane.getHitbox();
@@ -324,9 +332,26 @@ public class Boat extends Entity {
                             this.health-=obstacle.getDamage();
                         }
                         return false;
+                    case "shield.png":
+                        if (!(this.shield)){
+                            this.shield=true;
+                        }
+                        return false;
+
+
+                    case "agility.png":
+                        this.agility+=30;
+                        return false;
+
                     default:
-                        size--;
-                        this.health -= obstacle.getDamage();
+                        //if the player has a shield powerup, the damage and slowdown is blocked
+                        if (!(this.shield)) {
+                            size--;
+                            this.health -= obstacle.getDamage();
+                        } else{
+                            this.shield = false;
+                            return false;
+                        }
                 }
 
 
