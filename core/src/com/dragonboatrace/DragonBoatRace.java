@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragonboatrace.screens.MainMenuScreen;
 import com.dragonboatrace.tools.Settings;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author Benji Garment, Joe Wrieden
  */
-public class DragonBoatRace extends Game {
+public class DragonBoatRace extends Game implements Serializable {
 
     /**
      * The Spritebatch used to group all renders.
