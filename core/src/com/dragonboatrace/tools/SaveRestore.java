@@ -1,7 +1,9 @@
 package com.dragonboatrace.tools;
 
+import com.badlogic.gdx.Gdx;
 import com.dragonboatrace.entities.boats.ComputerBoat;
 import com.dragonboatrace.entities.boats.PlayerBoat;
+import com.dragonboatrace.screens.MainGameScreen;
 import com.google.gson.*;
 import com.dragonboatrace.DragonBoatRace;
 
@@ -9,36 +11,42 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * Game saving / restoring logic
+ * Game saving / restoring function related class.
  */
 public class SaveRestore {
 
     private Race race;
     private DragonBoatRace game;
+    private ScrollingBackground bg;
 
+    /**
+     * Constructor for class.
+     * This class takes the entire game instance, and
+     * @param game
+     * @param race
+     */
     public SaveRestore(DragonBoatRace game, Race race) {
         this.race = race;
         this.game = game;
+    }
+
+    public SaveRestore(MainGameScreen screen) {
+        this.race = screen.getRace();
+        this.game = screen.getGame();
+        this.bg = screen.getBackground();
     }
 
     public void Save() {
 
 //        this.race.
 
-        this.race.getBoats().forEach((boat -> {
+        Gdx.app.log("PLAYER", String.format("%f", this.race.getPlayer().getHealth()));
 
+        this.race.getBoats().forEach((boat -> {
+            Gdx.app.log("BOAT", String.format("%s time: %f", boat.getName(), boat.getTime()));
+//            Gdx.app.log()
         }));
 
-        /*
-            Data to be saved from:
-
-            Data to be saved:
-                - PlayerBoat
-                    - Player Time
-                    -
-                - ComputerBoat
-                - Race
-         */
 
         // get all boats
 

@@ -12,10 +12,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.utils.Timer;
 import com.dragonboatrace.DragonBoatRace;
 import com.dragonboatrace.entities.boats.BoatType;
-import com.dragonboatrace.tools.GsonTool;
-import com.dragonboatrace.tools.Race;
-import com.dragonboatrace.tools.ScrollingBackground;
-import com.dragonboatrace.tools.Settings;
+import com.dragonboatrace.tools.*;
 
 /**
  * Represents the Main Game Screen where the game actually happens.
@@ -118,17 +115,6 @@ public class MainGameScreen implements Screen {
     }
 
     /**
-     * Constructor for game restore function
-     * @param game
-     * @param race
-     */
-//    public MainGameScreen(DragonBoatRace game, Race race) {
-//        this.game = game;
-//        this.logger = new FPSLogger();
-//
-//    }
-
-    /**
      * Runs when the window first starts. Runs the countdown starter.
      */
     public void show() {
@@ -162,8 +148,13 @@ public class MainGameScreen implements Screen {
 //            this.game.setScreen(new PauseScreen(this.game, this));
 //        }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
-            Gdx.app.log("serialise", gtool.toJsonString(this.race.getBoats()));
+        // nb: only save the game when the game is paused.
+        if (Gdx.input.isKeyJustPressed(Input.Keys.N)) {
+            setPaused(!getPaused());
+        }
+
+        if (getPaused() && Gdx.input.isKeyJustPressed(Input.Keys.I)) {
+            (new SaveRestore(this)).Save();
         }
     }
 
@@ -200,4 +191,73 @@ public class MainGameScreen implements Screen {
     public void dispose() {
         this.game.getBatch().dispose();
     }
+
+    // getters / setters for the required dynamic data
+
+    public void setPaused(boolean paused) {
+        this.paused = paused;
+    }
+
+    public boolean getPaused() { return this.paused; }
+
+    public DragonBoatRace getGame() {
+        return game;
+    }
+
+    public Race getRace() {
+        return race;
+    }
+
+    public ScrollingBackground getBackground() {
+        return background;
+    }
+
+    // test: constructor
+
+    public MainGameScreen(DragonBoatRace game, Race race, ScrollingBackground bg) {
+        this.game = game;
+        this.race = race;
+        this.background = bg;
+
+        this.background.resize(Gdx.graphics.getWidth());
+
+        /* Font related items */
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size *= 10.0 / Settings.SCALAR;
+        parameter.color = Color.BLACK;
+        this.font = generator.generateFont(parameter);
+        this.layout = new GlyphLayout();
+
+        this.logger = new FPSLogger();
+
+        /* Countdown initialisation */
+        Timer.Task countDownTask = new Timer.Task() {
+            @Override
+            public void run() {
+                paused = true;
+                if (countDownRemaining == 3) {
+                    countDownString = "READY";
+                    countDownRemaining--;
+                } else if (countDownRemaining == 2) {
+                    countDownString = "STEADY";
+                    countDownRemaining--;
+                } else if (countDownRemaining == 1) {
+                    countDownString = "GO";
+                    countDownRemaining--;
+                } else {
+                    countDownString = "";
+                    paused = false;
+                    this.cancel();
+                }
+            }
+        };
+        timer = new Timer();
+        timer.scheduleTask(countDownTask, 0, 1);
+        // We don't want the countdown to start before the screen has displayed.
+        timer.stop();
+
+    }
+
+
 }

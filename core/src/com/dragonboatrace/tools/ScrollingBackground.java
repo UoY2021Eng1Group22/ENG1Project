@@ -4,12 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.io.Serializable;
+
 /**
  * Represents the scrolling background.
  *
  * @author Benji Garment, Joe Wrieden
  */
-public class ScrollingBackground {
+public class ScrollingBackground implements Serializable {
 
     /**
      * The texture to use as the background.
@@ -82,4 +84,13 @@ public class ScrollingBackground {
         y1 = 0;
         y2 = image.getHeight() * imageScale;
     }
+
+    public float getY1() {
+        return y1;
+    }
+
+    public float getY2() {
+        return y2;
+    }
+
 }
