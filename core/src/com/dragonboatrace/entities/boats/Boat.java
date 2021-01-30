@@ -21,7 +21,7 @@ import java.util.ArrayList;
  *
  * @author Benji Garment, Joe Wrieden
  */
-public class Boat extends Entity {
+public abstract class Boat extends Entity {
 
     /**
      * The rate at which the stamina is used or regenerated at.

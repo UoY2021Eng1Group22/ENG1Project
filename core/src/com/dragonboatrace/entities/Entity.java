@@ -94,4 +94,17 @@ public abstract class Entity {
     public Hitbox getHitBox() {
         return this.hitbox;
     }
+
+    // (P2) exposing more properties
+
+
+    public Vector2 getPosition() {
+        return position;
+    }
+    public Vector2 getVelocity() {
+        return velocity;
+    }
+    public EntityType getType() {
+        return type;
+    }
 }
