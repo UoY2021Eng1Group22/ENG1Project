@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Timer;
 import com.dragonboatrace.DragonBoatRace;
 import com.dragonboatrace.entities.boats.BoatType;
 import com.dragonboatrace.tools.*;
+import com.dragonboatrace.tools.state.SaveRestore;
 
 /**
  * Represents the Main Game Screen where the game actually happens.
@@ -61,8 +62,6 @@ public class MainGameScreen implements Screen {
      * The String being displayed in the countdown.
      */
     private String countDownString = "";
-
-    private GsonTool gtool = new GsonTool();
 
     /**
      * Creates a new game screen with a game instance.
@@ -143,19 +142,26 @@ public class MainGameScreen implements Screen {
         }
         this.game.getBatch().end();
 
-//        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-//            this.paused = true;
-//            this.game.setScreen(new PauseScreen(this.game, this));
-//        }
-
+        // P2
+        // Pressing P now toggles pausing.
         // nb: only save the game when the game is paused.
-        if (Gdx.input.isKeyJustPressed(Input.Keys.N)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
             setPaused(!getPaused());
         }
 
-        if (getPaused() && Gdx.input.isKeyJustPressed(Input.Keys.I)) {
+        // P2
+        // Currently (01-30), pressing O triggers the saving subroutine.
+        if (getPaused() && Gdx.input.isKeyJustPressed(Input.Keys.O)) {
             (new SaveRestore(this)).Save();
         }
+
+        // P2
+        // TODO: Implement pause indicator (?)
+
+        // P2
+        // TODO: Implement game slot logic
+
+
     }
 
     /**
