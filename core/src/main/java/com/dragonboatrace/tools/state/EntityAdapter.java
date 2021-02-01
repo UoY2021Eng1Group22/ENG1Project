@@ -1,8 +1,14 @@
 package com.dragonboatrace.tools.state;
 
 import com.dragonboatrace.entities.Entity;
-import com.google.gson.*;
-
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import java.lang.reflect.Type;
 
 // (de)serializing abstract classes in Gson
@@ -10,10 +16,9 @@ import java.lang.reflect.Type;
 
 /**
  * EntityAdapter is responsible for (de)serialising entity related classes.
- *
  */
 class EntityAdapter implements JsonSerializer<Entity>, JsonDeserializer<Entity> {
-    public JsonElement serialize(Entity src, Type typeOfSrc, JsonSerializationContext context) {
+  public JsonElement serialize(Entity src, Type typeOfSrc, JsonSerializationContext context) {
         /*
             position,
             velocity,
@@ -22,22 +27,23 @@ class EntityAdapter implements JsonSerializer<Entity>, JsonDeserializer<Entity> 
             (hitbox derived from type)
          */
 
-        JsonObject result = new JsonObject();
-        result.add("type", new JsonPrimitive(src.getClass().getSimpleName()));
-        result.add("properties", context.serialize(src));
-        return result;
+    JsonObject result = new JsonObject();
+    result.add("type", new JsonPrimitive(src.getClass().getSimpleName()));
+    result.add("properties", context.serialize(src));
+    return result;
+  }
+
+
+  public Entity deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+      throws JsonParseException {
+    JsonObject jsonObject = json.getAsJsonObject();
+    String type = jsonObject.get("type").getAsString();
+    JsonElement element = jsonObject.get("properties");
+
+    try {
+      return context.deserialize(element, Class.forName("com.dragonboatrace.entities." + type));
+    } catch (ClassNotFoundException ex) {
+      throw new JsonParseException("Unknown element type: " + type, ex);
     }
-
-
-    public Entity deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        JsonObject jsonObject = json.getAsJsonObject();
-        String type = jsonObject.get("type").getAsString();
-        JsonElement element = jsonObject.get("properties");
-
-        try {
-            return context.deserialize(element, Class.forName("com.dragonboatrace.entities." + type));
-        } catch (ClassNotFoundException ex) {
-            throw new JsonParseException("Unknown element type: " + type, ex);
-        }
-    }
+  }
 }

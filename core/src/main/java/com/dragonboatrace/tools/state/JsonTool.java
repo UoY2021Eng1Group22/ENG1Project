@@ -11,32 +11,31 @@ import com.google.gson.GsonBuilder;
  */
 class JsonTool {
 
-    private final Gson gson;
+  private final Gson gson;
 
-    JsonTool() {
+  JsonTool() {
 
-        // builder is used for building the Gson instance
-        GsonBuilder builder = new GsonBuilder();
+    // builder is used for building the Gson instance
+    GsonBuilder builder = new GsonBuilder();
 
-        // Register adapters.
-        builder.registerTypeAdapter(ScrollingBackground.class, new ScrollingBackgroundAdapter());
+    // Register adapters.
+    builder.registerTypeAdapter(ScrollingBackground.class, new ScrollingBackgroundAdapter());
 
-        // build and set the Gson instance
-        this.gson = builder.create();
+    // build and set the Gson instance
+    this.gson = builder.create();
 
-    }
+  }
 
-    /**
-     *
-     * @return A Json string
-     */
-    String serialize(Object o) {
+  /**
+   * @return A Json string
+   */
+  String serialize(Object o) {
 //        this.gson
-        return this.gson.toJson(o);
-    }
+    return this.gson.toJson(o);
+  }
 
-    void deserialize() {
+  void deserialize() {
 
-    }
+  }
 
 }
