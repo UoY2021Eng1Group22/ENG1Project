@@ -1,5 +1,4 @@
 buildscript {
-    
 
     repositories {
         mavenLocal()
@@ -17,6 +16,7 @@ buildscript {
 
 allprojects {
     apply plugin: "eclipse"
+    apply plugin: "checkstyle" // P2
 
     version = '1.2'
     ext {
@@ -66,28 +66,12 @@ project(":core") {
         api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
         implementation 'com.google.code.gson:gson:2.8.6'
 
-    }
-}
-
-project(":tests") {
-    apply plugin: "java"
-
-    sourceSets.test.java.srcDirs = ["src/"]
-
-    dependencies {
-        compile project(":core")
-
-        compile "junit:junit:4.+"
-        compile "org.mockito:mockito-all:1.9.+"
-
-        compile "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
-        compile "com.badlogicgames.gdx:gdx:$gdxVersion"
+        testCompile "com.badlogicgames.gdx:gdx:$gdxVersion"
+        testCompile "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+        testCompile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
 
         testCompile 'junit:junit:4.+'
         testCompile "org.mockito:mockito-all:1.9.+"
 
-        testCompile "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
-        testCompile "com.badlogicgames.gdx:gdx:$gdxVersion"
-        testCompile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
     }
 }
