@@ -16,9 +16,9 @@ buildscript {
 
 allprojects {
     apply plugin: "eclipse"
-    apply plugin: "checkstyle" // P2
 
     version = '1.2'
+
     ext {
         appName = "DragonBoatRace"
         gdxVersion = '1.9.11'
@@ -26,6 +26,7 @@ allprojects {
         box2DLightsVersion = '1.4'
         ashleyVersion = '1.7.0'
         aiVersion = '1.8.0'
+        checkstyleVersion = "8.40"
     }
 
     repositories {
@@ -36,6 +37,14 @@ allprojects {
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
     }
+
+    // P2 - checkstyle
+    apply plugin: "checkstyle" // P2
+
+    dependencies {
+        checkstyle "com.puppycrawl.tools:checkstyle:$checkstyleVersion"
+    }
+
 }
 
 project(":desktop") {
@@ -57,7 +66,6 @@ project(":desktop") {
 
 project(":core") {
     apply plugin: "java-library"
-
 
     dependencies {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
