@@ -1,15 +1,12 @@
 package com.dragonboatrace.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector2;
 import com.dragonboatrace.DragonBoatRace;
 import com.dragonboatrace.entities.Button;
 import com.dragonboatrace.entities.EntityType;
-import com.dragonboatrace.tools.SaveRestore;
 import com.dragonboatrace.tools.Settings;
 
 /**
@@ -67,10 +64,10 @@ public class PauseScreen implements Screen {
             this.game.setScreen(this.prevScreen);
         }
 
-        saveButton.render(this.game.getBatch());
-        if (saveButton.isHovering() && Gdx.input.isTouched()) {
-            (new SaveRestore()).Save();
-        }
+//        saveButton.render(this.game.getBatch());
+//        if (saveButton.isHovering() && Gdx.input.isTouched()) {
+//            (new SaveRestore()).Save();
+//        }
 
         menuButton.render(this.game.getBatch());
         if (menuButton.isHovering() && Gdx.input.isTouched()) {

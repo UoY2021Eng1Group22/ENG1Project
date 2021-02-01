@@ -45,6 +45,17 @@ public class ScrollingBackground {
     }
 
     /**
+     * Creates a ScrollingBackground but is scrolled to a specific position.
+     */
+    public ScrollingBackground(float y1, float y2, float xPosition) {
+        this.image = new Texture(Gdx.files.local("background.png"));
+        this.y1 = y1;
+        this.y2 = y2;
+        this.imageScale = 1;
+        this.xPosition = xPosition;
+    }
+
+    /**
      * Scroll the background according the distance travelled by the player.
      *
      * @param deltaDistance The distance travelled in the last frame by the player.
@@ -81,5 +92,21 @@ public class ScrollingBackground {
         imageScale = (float) width / image.getWidth();
         y1 = 0;
         y2 = image.getHeight() * imageScale;
+    }
+
+    // P2
+    // getters for the Y1, Y2, and xPosition values
+    // for serialisation
+
+    public float getY1() {
+        return y1;
+    }
+
+    public float getY2() {
+        return y2;
+    }
+
+    public float getxPosition() {
+        return xPosition;
     }
 }
