@@ -2,7 +2,6 @@ package com.dragonboatrace.tools.state;
 
 import com.dragonboatrace.tools.Race;
 import com.dragonboatrace.tools.ScrollingBackground;
-
 import java.io.Serializable;
 
 /**
@@ -10,30 +9,30 @@ import java.io.Serializable;
  */
 class State implements Serializable {
 
-    private Race race;
-    private ScrollingBackground background;
+  private Race race;
+  private ScrollingBackground background;
 
-    State() {
-        // Default values (?)
-    }
+  State() {
+    // Default values (?)
+  }
 
-    State(Race race, ScrollingBackground background) {
+  State(Race race, ScrollingBackground background) {
 
-    }
+  }
 
-    public Race getRace() {
-        return race;
-    }
+  public Race getRace() {
+    return race;
+  }
 
-    public ScrollingBackground getBackground() {
-        return background;
-    }
+  public void setRace(Race race) {
+    this.race = race;
+  }
 
-    public void setRace(Race race) {
-        this.race = race;
-    }
+  public ScrollingBackground getBackground() {
+    return background;
+  }
 
-    public void setBackground(ScrollingBackground background) {
-        this.background = background;
-    }
+  public void setBackground(ScrollingBackground background) {
+    this.background = background;
+  }
 }
