@@ -54,8 +54,8 @@ public abstract class Boat extends Entity {
 
   /**
    * The speed of the boat.
-   * <p>
-   * This is the speed attribute of the boat, not how fast it actually is moving.
+   *
+   * <p>This is the speed attribute of the boat, not how fast it actually is moving.</p>
    */
   protected float speed;
 
@@ -95,7 +95,7 @@ public abstract class Boat extends Entity {
   protected float collisionTime = 0;
 
   /**
-   * Boat Type of boat used to remember the chosen boat type
+   * Boat Type of boat used to remember the chosen boat type.
    */
   protected BoatType boatType;
 
@@ -140,7 +140,7 @@ public abstract class Boat extends Entity {
   protected BitmapFont nameFont;
 
   /**
-   * New attribute which marks if the boat has a shield
+   * New attribute which marks if the boat has a shield.
    */
   protected boolean shield;
 

@@ -65,6 +65,10 @@ public class MainGameScreen implements Screen {
    */
   private String countDownString = "";
 
+  // P2
+  /** Indication of if the game/race has started already. */
+  private boolean gameHasStarted = false;
+
   /**
    * Creates a new game screen with a game instance.
    *
@@ -106,6 +110,7 @@ public class MainGameScreen implements Screen {
         } else {
           countDownString = "";
           paused = false;
+          gameHasStarted = true;
           this.cancel();
         }
       }
@@ -178,7 +183,7 @@ public class MainGameScreen implements Screen {
     Gdx.gl.glClearColor(32.0f / 255.0f, 96.0f / 255.0f, 184.0f / 255.0f, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     this.game.getBatch().begin();
-    if (!paused) {
+    if (!getPaused()) {
       this.logger.log();
       this.background.update(deltaTime * this.race.getPlayer().getVelocity().y);
       this.background.render(game.getBatch());
@@ -189,6 +194,11 @@ public class MainGameScreen implements Screen {
       this.race.render(game.getBatch());
       displayCountDown();
     }
+
+    if (getPaused() && gameHasStarted) {
+      displayPaused(getPaused());
+    }
+
     this.game.getBatch().end();
 
     // P2
@@ -196,6 +206,7 @@ public class MainGameScreen implements Screen {
     // nb: only save the game when the game is paused.
     if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
       setPaused(!getPaused());
+//      displayPaused(getPaused());
     }
 
     // P2
@@ -219,6 +230,17 @@ public class MainGameScreen implements Screen {
   private void displayCountDown() {
     layout.setText(font, this.countDownString);
     font.draw(game.getBatch(), this.countDownString, (Gdx.graphics.getWidth() - layout.width) / 2,
+        Gdx.graphics.getHeight() / 2.0f);
+  }
+
+  // P2
+
+  private void displayPaused(boolean paused) {
+
+    String pausedStr = paused ? "Paused" : "";
+
+    layout.setText(font, pausedStr);
+    font.draw(game.getBatch(), pausedStr, (Gdx.graphics.getWidth() - layout.width) / 2,
         Gdx.graphics.getHeight() / 2.0f);
   }
 
