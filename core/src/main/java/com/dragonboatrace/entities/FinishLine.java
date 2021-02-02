@@ -3,6 +3,7 @@ package com.dragonboatrace.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.google.gson.annotations.Expose;
 
 /**
  * Represents the finish line of the race.
@@ -14,6 +15,7 @@ public class FinishLine extends Entity {
   /**
    * The scale at which to render at.
    */
+  @Expose
   private final float widthScale;
 
   /**

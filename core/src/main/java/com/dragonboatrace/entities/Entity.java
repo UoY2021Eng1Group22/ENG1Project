@@ -6,25 +6,37 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.dragonboatrace.tools.Hitbox;
+import com.dragonboatrace.tools.state.PostProcessable;
+import com.google.gson.annotations.Expose;
 
 /**
  * Represents a generic Entity.
  *
  * @author Benji Garment, Joe Wrieden
  */
-public abstract class Entity {
+public abstract class Entity implements PostProcessable {
   /**
    * The position of the entity.
    */
+  @Expose // P2
   protected Vector2 position;
+
   /**
    * The velocity of the entity.
    */
+  @Expose // P2
   protected Vector2 velocity;
+
   /**
    * What kind of entity it is.
    */
-  protected EntityType type;
+  @Expose // P2
+  protected EntityType entityType; // P2
+
+  // P2
+  /** The name of the texture */
+  protected String textureName;
+
   /**
    * The texture of the entity.
    */
@@ -39,17 +51,18 @@ public abstract class Entity {
    *
    * @param position The initial position of the entity.
    * @param velocity The initial velocity of the entity.
-   * @param type     The type of entity.
+   * @param entityType     The type of entity.
    * @param texture  The texture of the entity.
    */
-  public Entity(Vector2 position, Vector2 velocity, EntityType type, String texture) {
+  public Entity(Vector2 position, Vector2 velocity, EntityType entityType, String texture) {
     this.position = position;
     this.velocity = velocity;
-    this.type = type;
+    this.entityType = entityType;
+    this.textureName = texture; // P2
 
     /* Resize the texture to the bounds of the entity, defined in EntityType */
     Pixmap full = new Pixmap(Gdx.files.local(texture));
-    Pixmap resize = new Pixmap(type.getWidth(), type.getHeight(), full.getFormat());
+    Pixmap resize = new Pixmap(entityType.getWidth(), entityType.getHeight(), full.getFormat());
     /* Redraw texture */
     resize.drawPixmap(full, 0, 0, full.getWidth(), full.getHeight(), 0, 0, resize.getWidth(),
         resize.getHeight());
@@ -59,7 +72,7 @@ public abstract class Entity {
     resize.dispose();
 
     /* Make a new hit box at the entities position with its width and height */
-    this.hitbox = new Hitbox((int) position.x, (int) position.y, type.getWidth(), type.getHeight());
+    this.hitbox = new Hitbox((int) position.x, (int) position.y, entityType.getWidth(), entityType.getHeight());
   }
 
   /**
@@ -96,8 +109,7 @@ public abstract class Entity {
     return this.hitbox;
   }
 
-  // (P2) exposing more properties
-
+  // exposing more properties
 
   public Vector2 getPosition() {
     return position;
@@ -107,7 +119,27 @@ public abstract class Entity {
     return velocity;
   }
 
-  public EntityType getType() {
-    return type;
+  public EntityType getEntityType() {
+    return entityType;
   }
+
+  // P2
+  public void setTexture(String texture) {
+    Pixmap full = new Pixmap(Gdx.files.local(texture));
+    Pixmap resize = new Pixmap(entityType.getWidth(), entityType.getHeight(), full.getFormat());
+    /* Redraw texture */
+    resize.drawPixmap(full, 0, 0, full.getWidth(), full.getHeight(), 0, 0, resize.getWidth(),
+        resize.getHeight());
+    this.texture = new Texture(resize);
+  }
+
+  // P2
+  // when deserialising, some information may not be deserialised back into place.
+  // this function hydrates the incomplete deserialised object.
+  @Override
+  public void postProcess() {
+//    this.setTexture(this.textureName);
+    this.hitbox = new Hitbox((int) position.x, (int) position.y, entityType.getWidth(), entityType.getHeight());
+  }
+
 }

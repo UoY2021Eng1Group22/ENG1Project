@@ -12,6 +12,8 @@ import com.dragonboatrace.entities.boats.ComputerBoat;
 import com.dragonboatrace.entities.boats.PlayerBoat;
 import com.dragonboatrace.screens.GameOverScreen;
 import com.dragonboatrace.screens.RoundsScreen;
+import com.dragonboatrace.tools.state.PostProcessable;
+import com.google.gson.annotations.Expose;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,23 +26,26 @@ import java.util.concurrent.ThreadLocalRandom;
  *
  * @author Benji Garment, Joe Wrieden
  */
-public class Race {
+public class Race implements PostProcessable {
   /**
    * The length of the race.
    */
+  @Expose
   private final int length;
   /**
    * The list of boats in the race, not including the player.
    */
+  @Expose
   private final ArrayList<Boat> boats;
   /**
    * The players boat.
    */
+  @Expose
   private final Boat player;
   /**
    * The finish line.
    */
-  private final FinishLine theFinish;
+  private FinishLine theFinish; // P2 /// postProcess
   /**
    * The separator between each lane.
    */
@@ -267,6 +272,11 @@ public class Race {
 
   public FinishLine getFinishLine() {
     return theFinish;
+  }
+
+  @Override
+  public void postProcess() {
+    this.theFinish = new FinishLine(new Vector2(0, Gdx.graphics.getHeight()), Gdx.graphics.getWidth());
   }
 
 }

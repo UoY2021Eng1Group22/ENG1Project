@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragonboatrace.screens.MainMenuScreen;
 import com.dragonboatrace.tools.Settings;
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author Benji Garment, Joe Wrieden
  */
-public class DragonBoatRace extends Game implements Serializable {
+public class DragonBoatRace extends Game {
 
   /**
    * The Spritebatch used to group all renders.
@@ -22,16 +23,19 @@ public class DragonBoatRace extends Game implements Serializable {
   /**
    * The current round.
    */
+  @Expose
   protected int round = 1;
 
   /**
    * A list of cumulative times for all boats.
    */
+  @Expose
   protected ArrayList<Float> totalTimes = new ArrayList<>();
 
   /**
    * The players total time.
    */
+  @Expose
   protected float playerTotalTime = 0;
 
   @Override

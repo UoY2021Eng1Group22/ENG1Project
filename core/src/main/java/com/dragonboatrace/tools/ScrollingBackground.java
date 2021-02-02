@@ -3,6 +3,7 @@ package com.dragonboatrace.tools;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.google.gson.annotations.Expose;
 
 /**
  * Represents the scrolling background.
@@ -16,17 +17,21 @@ public class ScrollingBackground {
    */
   private final Texture image;
 
+  // P2: checkstyle
   /**
    * The x position that both the images use to align vertically.
    */
-  private final float xPosition;
+  @Expose // P2
+  private final float xposition;
   /**
    * The y position of the first image.
    */
+  @Expose // P2
   private float y1;
   /**
    * The y position the second image.
    */
+  @Expose // P2
   private float y2;
   /**
    * The scale at which to draw the background.
@@ -41,18 +46,19 @@ public class ScrollingBackground {
     this.y1 = 0;
     this.y2 = image.getHeight();
     this.imageScale = 1;
-    this.xPosition = 0;
+    this.xposition = 0; // P2: checkstyle
   }
 
+  // P2
   /**
    * Creates a ScrollingBackground but is scrolled to a specific position.
    */
-  public ScrollingBackground(float y1, float y2, float xPosition) {
+  public ScrollingBackground(float y1, float y2, float xposition) {
     this.image = new Texture(Gdx.files.local("background.png"));
     this.y1 = y1;
     this.y2 = y2;
     this.imageScale = 1;
-    this.xPosition = xPosition;
+    this.xposition = xposition;
   }
 
   /**
@@ -81,9 +87,9 @@ public class ScrollingBackground {
    */
   public void render(SpriteBatch batch) {
     /* render background at the position given by the vector */
-    batch.draw(image, this.xPosition, y1, image.getWidth() * imageScale,
+    batch.draw(image, this.xposition, y1, image.getWidth() * imageScale,
         image.getHeight() * imageScale);
-    batch.draw(image, this.xPosition, y2, image.getWidth() * imageScale,
+    batch.draw(image, this.xposition, y2, image.getWidth() * imageScale,
         image.getHeight() * imageScale);
   }
 
@@ -110,7 +116,7 @@ public class ScrollingBackground {
     return y2;
   }
 
-  public float getxPosition() {
-    return xPosition;
+  public float getXposition() {
+    return xposition;
   }
 }
