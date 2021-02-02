@@ -1,5 +1,5 @@
 plugins {
-    id 'net.ltgt.errorprone'
+    id 'com.github.spotbugs'
 }
 
 sourceCompatibility = 1.8
@@ -20,3 +20,8 @@ javadoc {
 //    destinationDir = reporting.file("../../../../docs")
 }
 
+
+dependencies {
+    spotbugs 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.10.1'
+    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.10.1'
+}

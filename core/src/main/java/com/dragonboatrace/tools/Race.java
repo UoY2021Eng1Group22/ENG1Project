@@ -50,7 +50,7 @@ public class Race implements PostProcessable {
    * The separator between each lane.
    */
   private final Texture barrier;
-
+  @Expose
   /**
    * The timer for the race.
    */

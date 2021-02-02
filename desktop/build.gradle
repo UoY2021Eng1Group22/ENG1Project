@@ -1,3 +1,8 @@
+plugins {
+    id 'application'
+    id 'com.github.spotbugs'
+}
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8 // P2
 sourceSets.main.java.srcDirs = [ "src/" ]
@@ -6,13 +11,17 @@ sourceSets.main.resources.srcDirs = ["../core/assets"]
 project.ext.mainClassName = "com.dragonboatrace.desktop.DesktopLauncher"
 project.ext.assetsDir = new File("../core/assets")
 
-task run(dependsOn: classes, type: JavaExec) {
-    main = project.mainClassName
-    classpath = sourceSets.main.runtimeClasspath
-    standardInput = System.in
-    workingDir = project.assetsDir
-    ignoreExitValue = true
+application {
+    mainClassName = project.mainClassName
 }
+
+//task run(dependsOn: classes, type: JavaExec) {
+//    main = project.mainClassName
+//    classpath = sourceSets.main.runtimeClasspath
+//    standardInput = System.in
+//    workingDir = project.assetsDir
+//    ignoreExitValue = true
+//}
 
 task debug(dependsOn: classes, type: JavaExec) {
     main = project.mainClassName
@@ -27,6 +36,7 @@ task dist(type: Jar) {
     manifest {
         attributes 'Main-Class': project.mainClassName
     }
+    baseName("dragonboatrace")
     dependsOn configurations.runtimeClasspath
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
@@ -34,7 +44,11 @@ task dist(type: Jar) {
     with jar
 }
 
-
 dist.dependsOn classes
 
 eclipse.project.name = appName + "-desktop"
+
+dependencies {
+    spotbugs 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.10.1'
+    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.10.1'
+}
