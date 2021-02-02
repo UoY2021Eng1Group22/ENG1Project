@@ -338,6 +338,8 @@ public abstract class Boat extends Entity {
         obstacle.dispose();
         this.lane.removeObstacle(obstacle);
 
+        // TODO: we can do better.
+
         switch (obstacle.getObstacleType().getTexture()) {
           case "stamina.png":
 
