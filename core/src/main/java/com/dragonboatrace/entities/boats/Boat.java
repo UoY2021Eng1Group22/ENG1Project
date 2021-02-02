@@ -13,6 +13,7 @@ import com.dragonboatrace.entities.Obstacle;
 import com.dragonboatrace.tools.Hitbox;
 import com.dragonboatrace.tools.Lane;
 import com.dragonboatrace.tools.Settings;
+import com.google.gson.annotations.Expose;
 import java.util.ArrayList;
 
 /**
@@ -25,11 +26,13 @@ public abstract class Boat extends Entity {
   /**
    * The rate at which the stamina is used or regenerated at.
    */
+  @Expose
   private final float staminaRate = 10;
 
   /**
    * The minimum amount of speed gained from using stamina.
    */
+  @Expose
   private final int minBoostSpeed = 5;
 
   /**
@@ -40,16 +43,19 @@ public abstract class Boat extends Entity {
   /**
    * The health of the boat.
    */
+  @Expose
   protected float health;
 
   /**
    * The stamina of the boat.
    */
+  @Expose
   protected float stamina;
 
   /**
    * The agility of the boat.
    */
+  @Expose
   protected float agility;
 
   /**
@@ -57,16 +63,19 @@ public abstract class Boat extends Entity {
    *
    * <p>This is the speed attribute of the boat, not how fast it actually is moving.</p>
    */
+  @Expose
   protected float speed;
 
   /**
    * The maximum amount of stamina the boat can have.
    */
+  @Expose
   protected float maxStamina;
 
   /**
    * The lane of the boat.
    */
+  @Expose
   protected Lane lane;
 
   /**
@@ -77,41 +86,49 @@ public abstract class Boat extends Entity {
   /**
    * The name of the boat.
    */
+  @Expose
   protected String name;
 
   /**
    * The total distance travelled by the boat.
    */
+  @Expose
   protected float distanceTravelled = 0.0f;
 
   /**
    * If there has been a recent collision.
    */
+  @Expose
   protected boolean recentCollision = false;
 
   /**
    * Timer used to countdown for when the boat can move again after a collision.
    */
+  @Expose
   protected float collisionTime = 0;
 
   /**
    * Boat Type of boat used to remember the chosen boat type.
    */
+  @Expose
   protected BoatType boatType;
 
   /**
    * The current time of the boat in the current round.
    */
+  @Expose
   protected float time;
 
   /**
    * Total time added up across all rounds.
    */
+  @Expose
   protected float totalTime;
 
   /**
    * Total time penalties the boat got.
    */
+  @Expose
   protected float penaltyTime;
 
   /**
@@ -142,6 +159,7 @@ public abstract class Boat extends Entity {
   /**
    * New attribute which marks if the boat has a shield.
    */
+  @Expose
   protected boolean shield;
 
 
@@ -542,4 +560,11 @@ public abstract class Boat extends Entity {
     this.lane.dispose();
     super.dispose();
   }
+
+  // P2
+  @Override
+  public void postProcess() {
+    this.setTexture(boatType.getImageSrc());
+  }
+
 }

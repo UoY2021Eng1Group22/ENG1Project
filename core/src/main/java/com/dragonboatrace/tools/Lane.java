@@ -51,6 +51,9 @@ public class Lane {
    */
   public void update(float deltaTime, float velY) {
 
+    // P2
+    // TODO: refactor this iterator routine to use forEach?
+
     /* Check for collisions */
     ListIterator<Obstacle> iter = obstacles.listIterator();
     while (iter.hasNext()) {

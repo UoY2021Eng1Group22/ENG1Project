@@ -37,7 +37,7 @@ public class PlayerBoat extends Boat {
         this.velocity.set(-this.speed, this.velocity.y);
       } else if (
           (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) &&
-              (this.position.x + this.type.getWidth()) <
+              (this.position.x + this.entityType.getWidth()) <
                   this.lane.getHitbox().getWidth() + this.lane.getHitbox().getX()) {
         this.velocity.set(this.speed, this.velocity.y);
       } else {

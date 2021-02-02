@@ -2,6 +2,8 @@ package com.dragonboatrace.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import com.dragonboatrace.tools.state.PostProcessable;
+import com.google.gson.annotations.Expose;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -14,13 +16,18 @@ public class Obstacle extends Entity {
   /**
    * The speed of the obstacle.
    */
+  @Expose
   private final float speed;
+
+
   /**
    * The damage the obstacle will deal when colliding with a player.
    */
+  @Expose
   private final float damage;
 
   // New variable to store the obstacles type.
+  @Expose
   private final ObstacleType obstacleType;
 
   /**
@@ -42,6 +49,16 @@ public class Obstacle extends Entity {
     this.damage = obstacleType.getDamage();
 
     // the obstacles type
+    this.obstacleType = obstacleType;
+  }
+
+  // P2
+  // Recreating a single obstacle with the exact state.
+  public Obstacle(ObstacleType obstacleType, Vector2 position, Vector2 velocity) {
+    super(position, velocity, EntityType.OBSTACLE, obstacleType.getTexture());
+    this.speed = obstacleType.getSpeed();
+    this.damage = obstacleType.getDamage();
+
     this.obstacleType = obstacleType;
   }
 
@@ -87,6 +104,11 @@ public class Obstacle extends Entity {
   // returns the Obstacles type
   public ObstacleType getObstacleType() {
     return this.obstacleType;
+  }
+
+  @Override
+  public void postProcess() {
+    this.setTexture(obstacleType.getTexture());
   }
 
 }

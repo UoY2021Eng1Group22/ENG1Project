@@ -35,11 +35,11 @@ public class Button extends Entity {
    */
   public void render(SpriteBatch batch) {
     if (this.isHovering()) {
-      batch.draw(this.activeTexture, this.position.x, this.position.y, this.type.getWidth(),
-          this.type.getHeight());
+      batch.draw(this.activeTexture, this.position.x, this.position.y, this.entityType.getWidth(),
+          this.entityType.getHeight());
     } else {
-      batch.draw(this.texture, this.position.x, this.position.y, this.type.getWidth(),
-          this.type.getHeight());
+      batch.draw(this.texture, this.position.x, this.position.y, this.entityType.getWidth(),
+          this.entityType.getHeight());
     }
   }
 
@@ -49,9 +49,9 @@ public class Button extends Entity {
    * @return A boolean of if the mouse is hovering over the button.
    */
   public boolean isHovering() {
-    return (Gdx.input.getX() < this.position.x + this.type.getWidth() &&
+    return (Gdx.input.getX() < this.position.x + this.entityType.getWidth() &&
         Gdx.input.getX() > this.position.x
-        && Gdx.graphics.getHeight() - Gdx.input.getY() < this.position.y + this.type.getHeight() &&
+        && Gdx.graphics.getHeight() - Gdx.input.getY() < this.position.y + this.entityType.getHeight() &&
         Gdx.graphics.getHeight() - Gdx.input.getY() > this.position.y);
   }
 

@@ -183,7 +183,7 @@ public class MainGameScreen implements Screen {
     Gdx.gl.glClearColor(32.0f / 255.0f, 96.0f / 255.0f, 184.0f / 255.0f, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     this.game.getBatch().begin();
-    if (!getPaused()) {
+    if (!isPaused()) {
       this.logger.log();
       this.background.update(deltaTime * this.race.getPlayer().getVelocity().y);
       this.background.render(game.getBatch());
@@ -195,9 +195,15 @@ public class MainGameScreen implements Screen {
       displayCountDown();
     }
 
-    if (getPaused() && gameHasStarted) {
-      displayPaused(getPaused());
+    // P2: Pause indicator
+    if (isPaused() && gameHasStarted) {
+      displayPaused(isPaused());
     }
+
+
+//    if (getPaused() && Gdx.input)
+
+    // P2: Help text for when pausing
 
     this.game.getBatch().end();
 
@@ -205,22 +211,32 @@ public class MainGameScreen implements Screen {
     // Pressing P now toggles pausing.
     // nb: only save the game when the game is paused.
     if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
-      setPaused(!getPaused());
-//      displayPaused(getPaused());
+      setPaused(!isPaused());
     }
 
     // P2
     // Currently (01-30), pressing O triggers the saving subroutine.
-    if (getPaused() && Gdx.input.isKeyJustPressed(Input.Keys.O)) {
-      (new SaveRestore(this)).Save();
+//    if (getPaused() && Gdx.input.isKeyJustPressed(Input.Keys.O)) {
+//      (new SaveRestore(this)).Save(1);
+//    }
+
+    // Escape goes back to MainMenuScreen now.
+
+    if (isPaused() && Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+      this.game.setScreen(new MainMenuScreen(game));
     }
 
     // P2
-    // TODO: Implement pause indicator (?)
+    // TODO: If slot is occupied, then show notification
 
-    // P2
-    // TODO: Implement game slot logic
-
+    if (isPaused()) {
+      if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1))
+        (new SaveRestore(this)).Save(1);
+      else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_2))
+        (new SaveRestore(this)).Save(2);
+      else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_3))
+        (new SaveRestore(this)).Save(3);
+    }
 
   }
 
@@ -236,12 +252,15 @@ public class MainGameScreen implements Screen {
   // P2
 
   private void displayPaused(boolean paused) {
-
     String pausedStr = paused ? "Paused" : "";
 
     layout.setText(font, pausedStr);
     font.draw(game.getBatch(), pausedStr, (Gdx.graphics.getWidth() - layout.width) / 2,
         Gdx.graphics.getHeight() / 2.0f);
+
+    // TODO: display help string
+
+
   }
 
   @Override
@@ -271,7 +290,7 @@ public class MainGameScreen implements Screen {
     this.game.getBatch().dispose();
   }
 
-  public boolean getPaused() {
+  public boolean isPaused() {
     return this.paused;
   }
 
