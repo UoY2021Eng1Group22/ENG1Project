@@ -48,7 +48,6 @@ dist.dependsOn classes
 
 eclipse.project.name = appName + "-desktop"
 
-dependencies {
-    spotbugs 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.10.1'
-    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.10.1'
+spotbugs {
+    ignoreFailures = true
 }
