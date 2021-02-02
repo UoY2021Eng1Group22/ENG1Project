@@ -16,40 +16,40 @@ import com.dragonboatrace.entities.boats.BoatType;
 import com.dragonboatrace.tools.Settings;
 
 /**
- * Displays the screen that allows the player to choose a boat at the beginning of the game.
+ * Displays the screen that allows the player to choose a difficulty at the beginning of the game.
  *
- * @author Benji Garment, Joe Wrieden
+ * @author Josh Guy
  */
 public class DifficultySelectScreen implements Screen {
 
     /**
-     * Texture of the easy boat preview.
+     * Texture of the easy difficulty image.
      */
     private final Texture easyImage;
 
     /**
-     * Texture of the medium boat preview.
+     * Texture of the medium difficulty image.
      */
     private final Texture mediumImage;
 
     /**
-     * Texture of the hard boat preview.
+     * Texture of the hard difficulty image.
      */
     private final Texture hardImage;
 
 
     /**
-     * Button to select the easy boat.
+     * Button to select easy difficulty.
      */
     private final Button easyButton;
 
     /**
-     * Button to select the medium boat.
+     * Button to select medium difficulty.
      */
     private final Button mediumButton;
 
     /**
-     * Button to select the hard boat.
+     * Button to select hard difficulty.
      */
     private final Button hardButton;
 
@@ -64,12 +64,16 @@ public class DifficultySelectScreen implements Screen {
     private final GlyphLayout layout;
 
     private final int buttonWidth;
+    /**
+     * BoatType chosen by the player
+     */
     private final String type;
 
     /**
-     * Creates a new screen to display the boat options to the player.
+     * Creates a new screen to display the difficulty options to the player.
      *
      * @param game The instance of the {@link DragonBoatRace} game.
+     * @param type The BoatType chosen on the {@link BoatSelectScreen}previous screen.
      */
     public DifficultySelectScreen(DragonBoatRace game, String type) {
 
@@ -108,7 +112,7 @@ public class DifficultySelectScreen implements Screen {
     }
 
     /**
-     * Renders the boat selection screen.
+     * Renders the difficulty selection screen.
      *
      * @param delta The time passed since the last frame.
      */
