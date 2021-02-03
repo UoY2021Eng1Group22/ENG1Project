@@ -13,6 +13,7 @@ import com.dragonboatrace.entities.Obstacle;
 import com.dragonboatrace.tools.Hitbox;
 import com.dragonboatrace.tools.Lane;
 import com.dragonboatrace.tools.Settings;
+import com.dragonboatrace.tools.state.PostProcessable;
 import com.google.gson.annotations.Expose;
 import java.util.ArrayList;
 
@@ -21,7 +22,7 @@ import java.util.ArrayList;
  *
  * @author Benji Garment, Joe Wrieden
  */
-public abstract class Boat extends Entity {
+public abstract class Boat extends Entity implements PostProcessable {
 
   /**
    * The rate at which the stamina is used or regenerated at.
@@ -567,6 +568,49 @@ public abstract class Boat extends Entity {
   @Override
   public void postProcess() {
     this.setTexture(boatType.getImageSrc());
+    laneBox = lane.getHitbox();
+
+    /* Setup fonts to use in the HUD */
+    this.generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
+    this.parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+    this.layout = new GlyphLayout();
+
+    /*Font for displaying the name */
+    parameter.size = 50;
+    parameter.color = Color.BLACK;
+    this.nameFont = generator.generateFont(parameter);
+
+    layout.setText(nameFont, this.name);
+    if (this.layout.width > this.laneBox.getWidth()) {
+      parameter.size = (int) (50 / (this.layout.width / this.laneBox.getWidth()));
+      parameter.color = Color.BLACK;
+      nameFont = generator.generateFont(parameter);
+    }
+
+    /* Font for displaying the health */
+    parameter.size = 50;
+    parameter.color = Color.RED;
+    this.healthFont = generator.generateFont(parameter);
+
+    layout.setText(healthFont, "Health:  XXX");
+    if (this.layout.width > this.laneBox.getWidth()) {
+      parameter.size = (int) (50 / (this.layout.width / this.laneBox.getWidth()));
+      parameter.color = Color.RED;
+      healthFont = generator.generateFont(parameter);
+    }
+
+    /* Font for displaying the stamina */
+    parameter.size = 50;
+    parameter.color = Color.GREEN;
+    this.staminaFont = generator.generateFont(parameter);
+
+    layout.setText(staminaFont, "Stamina: XXX");
+    if (this.layout.width > this.laneBox.getWidth()) {
+      parameter.size = (int) (50 / (this.layout.width / this.laneBox.getWidth()));
+      parameter.color = Color.GREEN;
+      staminaFont = generator.generateFont(parameter);
+    }
+
   }
 
 }

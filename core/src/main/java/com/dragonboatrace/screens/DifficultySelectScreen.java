@@ -20,7 +20,7 @@ import com.dragonboatrace.tools.Settings;
  *
  * @author Benji Garment, Joe Wrieden
  */
-public class DifficultySelectScreen implements Screen {
+class DifficultySelectScreen implements Screen { // P2 - no need to be public
 
     /**
      * Texture of the easy boat preview.

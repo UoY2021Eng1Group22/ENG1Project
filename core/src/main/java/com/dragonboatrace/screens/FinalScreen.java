@@ -17,7 +17,7 @@ import com.dragonboatrace.tools.Settings;
  *
  * @author Benji Garment, Joe Wrieden
  */
-public class FinalScreen implements Screen {
+class FinalScreen implements Screen { // P2 - No need to be public
 
   /**
    * The instance of the game.

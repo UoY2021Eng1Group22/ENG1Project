@@ -7,6 +7,8 @@ import com.dragonboatrace.entities.Obstacle;
 import com.dragonboatrace.tools.Hitbox;
 import com.dragonboatrace.tools.Lane;
 import com.dragonboatrace.tools.Settings;
+import com.dragonboatrace.tools.state.PostProcessable;
+import com.google.gson.annotations.Expose;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -15,36 +17,44 @@ import java.util.concurrent.ThreadLocalRandom;
  *
  * @author Benji Garment, Joe Wrieden
  */
-public class ComputerBoat extends Boat {
+public class ComputerBoat extends Boat implements PostProcessable {
 
   /**
    * The area in which the computer boat will look for obstacles to avoid.
    */
-  private final Hitbox moveArea;
+  private Hitbox moveArea;
 
   /**
    * The x-offset of the moveArea as the area is equal on both sides of the boat.
    */
-  private final int xOffset;
+  private int xOffset; // P2 - hydrate
+
+  /**
+   * The speed of the boat.
+   */
+  @Expose
+  private int pickSpeedValue;
 
   /**
    * The texture for the up indicator when the Computer is off the screen but above.
    */
-  private final Texture up;
+  private Texture up; // P2 - hydrate
 
   /**
    * The texture for the indicator when the Computer is off the screen but below.
    */
-  private final Texture down;
+  private Texture down; // P2 - hydrate
 
   /**
    * The random amount of stamina to have before using stamina again.
    */
+  @Expose
   private float randomWait;
 
   /**
    * If the ComputerBoat is currently regenerating stamina.
    */
+  @Expose
   private boolean waiting;
 
   /**
@@ -58,6 +68,7 @@ public class ComputerBoat extends Boat {
   public ComputerBoat(BoatType boat, Lane lane, String name, int pickSpeedValue) {
     super(boat, lane, name);
     this.speed = this.pickSpeed(pickSpeedValue);
+    this.pickSpeedValue = pickSpeedValue; // P2
     this.xOffset = this.getHitBox().getWidth() / pickSpeedValue;
     int yOffset = this.getHitBox().getHeight() / pickSpeedValue;
     this.moveArea = new Hitbox(this.position.x - xOffset, this.position.y,
@@ -241,6 +252,18 @@ public class ComputerBoat extends Boat {
         multi = ThreadLocalRandom.current().nextDouble(0.85, 0.9);
     }
     return this.speed * (float) multi;
+  }
+
+  @Override
+  public void postProcess() {
+    this.up = new Texture("up_arrow.png");
+    this.down = new Texture("down_arrow.png");
+
+    this.xOffset = this.getHitBox().getWidth() / this.pickSpeedValue;
+    int yOffset = this.getHitBox().getHeight() / this.pickSpeedValue;
+
+    this.moveArea = new Hitbox(this.position.x - xOffset, this.position.y,
+        this.getHitBox().getWidth() + 2 * xOffset, this.getHitBox().getHeight() + 2 * yOffset);
   }
 
 }

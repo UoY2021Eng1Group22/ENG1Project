@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.dragonboatrace.entities.Obstacle;
 import com.dragonboatrace.entities.ObstacleType;
+import com.google.gson.annotations.Expose;
 import java.util.ArrayList;
 import java.util.ListIterator;
 import java.util.concurrent.ThreadLocalRandom;
@@ -19,14 +20,17 @@ public class Lane {
   /**
    * The hit box of the lane, used to check if a boat is in the lane.
    */
+  @Expose
   private final Hitbox area;
   /**
    * A list of the obstacles currently in the lane.
    */
+  @Expose
   private final ArrayList<Obstacle> obstacles;
   /**
    * A list of times to wait before adding a new obstacle to the lane.
    */
+  @Expose
   private final ArrayList<Float> randomWaitTimes;
 
   /**

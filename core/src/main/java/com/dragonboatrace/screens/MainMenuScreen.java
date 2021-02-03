@@ -1,6 +1,7 @@
 package com.dragonboatrace.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,6 +10,8 @@ import com.dragonboatrace.DragonBoatRace;
 import com.dragonboatrace.entities.Button;
 import com.dragonboatrace.entities.EntityType;
 import com.dragonboatrace.tools.Settings;
+import com.dragonboatrace.tools.state.SaveRestore;
+import java.util.Arrays;
 
 /**
  * Represents the Main Menu where the game first starts.
@@ -100,6 +103,11 @@ public class MainMenuScreen implements Screen {
     helpButton.render(this.game.getBatch());
     if (this.helpButton.isHovering() && Gdx.input.isTouched()) {
       game.setScreen(new HelpScreen(this));
+    }
+
+    if (Gdx.input.isKeyJustPressed(Input.Keys.EQUALS)) {
+      // Debug screen
+      game.setScreen(new RestoreScreen(this.game));
     }
 
     this.game.getBatch().end();

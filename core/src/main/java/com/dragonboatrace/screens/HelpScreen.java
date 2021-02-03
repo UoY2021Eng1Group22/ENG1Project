@@ -19,7 +19,7 @@ import com.dragonboatrace.tools.Settings;
  *
  * @author Benji Garment, Joe Wrieden
  */
-public class HelpScreen implements Screen {
+class HelpScreen implements Screen { // P2 - No need to be public
 
   /**
    * The instance of the main menu.

@@ -6,12 +6,13 @@ import com.google.gson.GsonBuilder;
 
 /**
  * JsonTool is a helper class for interaction with the Gson library:
- * - Registering all custom serialisation adapters for each data type that needs to be saved.
- * - Providing convenient functions to interact with the Gson library, mainly serialise and deserialise.
+ * - Building a custom Gson instance
+ * - Registering custom serialisation adapters for each data type that needs to be saved.
+ * - Setting up hooks for all the deserialisation calls.
  */
 public class JsonTool {
 
-  public static Gson buildGson() {
+  static Gson buildGson() {
     // builder is used for building the Gson instance
     GsonBuilder builder = new GsonBuilder();
 

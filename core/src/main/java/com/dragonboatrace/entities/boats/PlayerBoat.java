@@ -5,13 +5,14 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragonboatrace.tools.Lane;
 import com.dragonboatrace.tools.Settings;
+import com.dragonboatrace.tools.state.PostProcessable;
 
 /**
  * Represents a specific Player controlled Boat.
  *
  * @author Benji Garment, Joe Wrieden
  */
-public class PlayerBoat extends Boat {
+public class PlayerBoat extends Boat implements PostProcessable {
 
   /**
    * Creates a player boat with values from boat, in Lane lane, and an identifying name.

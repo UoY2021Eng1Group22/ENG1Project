@@ -33,10 +33,6 @@ public abstract class Entity implements PostProcessable {
   @Expose // P2
   protected EntityType entityType; // P2
 
-  // P2
-  /** The name of the texture */
-  protected String textureName;
-
   /**
    * The texture of the entity.
    */
@@ -58,7 +54,6 @@ public abstract class Entity implements PostProcessable {
     this.position = position;
     this.velocity = velocity;
     this.entityType = entityType;
-    this.textureName = texture; // P2
 
     /* Resize the texture to the bounds of the entity, defined in EntityType */
     Pixmap full = new Pixmap(Gdx.files.local(texture));
@@ -138,7 +133,6 @@ public abstract class Entity implements PostProcessable {
   // this function hydrates the incomplete deserialised object.
   @Override
   public void postProcess() {
-//    this.setTexture(this.textureName);
     this.hitbox = new Hitbox((int) position.x, (int) position.y, entityType.getWidth(), entityType.getHeight());
   }
 

@@ -41,19 +41,19 @@ public class Race implements PostProcessable {
    * The players boat.
    */
   @Expose
-  private final Boat player;
+  private final PlayerBoat player;
   /**
    * The finish line.
    */
-  private FinishLine theFinish; // P2 /// postProcess
+  private FinishLine theFinish; // P2 /// not final - postProcess
   /**
    * The separator between each lane.
    */
-  private final Texture barrier;
-  @Expose
+  private Texture barrier; // P2 - not final
   /**
    * The timer for the race.
    */
+  @Expose
   private float timer;
 
   /**
@@ -166,6 +166,11 @@ public class Race implements PostProcessable {
    * @param game The instance of the game.
    */
   public void getLeaderBoard(DragonBoatRace game) {
+
+//    ArrayList<Boat> b = new ArrayList<>();
+//    b.addAll(this.boats);
+//    b.add(player);
+
     ArrayList<Float> times = new ArrayList<>();
     String reason = "";
     player.setTime(this.player.getPenaltyTime());
@@ -276,6 +281,7 @@ public class Race implements PostProcessable {
 
   @Override
   public void postProcess() {
+    this.barrier = new Texture("line.png");
     this.theFinish = new FinishLine(new Vector2(0, Gdx.graphics.getHeight()), Gdx.graphics.getWidth());
   }
 

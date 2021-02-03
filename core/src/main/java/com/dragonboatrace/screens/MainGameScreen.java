@@ -15,18 +15,21 @@ import com.dragonboatrace.entities.boats.BoatType;
 import com.dragonboatrace.tools.Race;
 import com.dragonboatrace.tools.ScrollingBackground;
 import com.dragonboatrace.tools.Settings;
+import com.dragonboatrace.tools.state.PostProcessable;
 import com.dragonboatrace.tools.state.SaveRestore;
+import com.google.gson.annotations.Expose;
 
 /**
  * Represents the Main Game Screen where the game actually happens.
  *
  * @author Benji Garment, Joe Wrieden
  */
-public class MainGameScreen implements Screen {
+public class MainGameScreen implements Screen, PostProcessable {
 
   /**
    * The game instance.
    */
+  @Expose
   private final DragonBoatRace game;
   /**
    * Used to make sure the countdown happens at equal intervals.
@@ -35,26 +38,29 @@ public class MainGameScreen implements Screen {
   /**
    * The race instance.
    */
+  @Expose
   private final Race race;
   /**
    * The background of the window.
    */
+  @Expose
   private final ScrollingBackground background;
   /**
    * Use to log the FPS for debugging.
    */
-  private final FPSLogger logger;
+  private FPSLogger logger; // P2 - hydrate
   /**
    * GlyphLayout used for centering fonts
    */
-  private final GlyphLayout layout;
+  private GlyphLayout layout; // P2 - hydrate
   /**
    * Font used for rendering to screen
    */
-  private final BitmapFont font;
+  private BitmapFont font; // P2 - hydrate
   /**
    * Pause game, starts true.
    */
+  @Expose
   private boolean paused = true;
   /**
    * The time left on the initial countdown.
@@ -65,8 +71,17 @@ public class MainGameScreen implements Screen {
    */
   private String countDownString = "";
 
+  /**
+   * The save restore feature instance.
+   */
+  private SaveRestore saveRestore;
+
+  private boolean saveTriggered = false;
+  private boolean saveSuccess = false;
+
   // P2
   /** Indication of if the game/race has started already. */
+  @Expose // ?
   private boolean gameHasStarted = false;
 
   /**
@@ -77,6 +92,7 @@ public class MainGameScreen implements Screen {
    */
   public MainGameScreen(DragonBoatRace game, BoatType boatChosen) {
     this.game = game;
+    this.saveRestore = new SaveRestore();
 
     this.logger = new FPSLogger();
 
@@ -121,52 +137,6 @@ public class MainGameScreen implements Screen {
     timer.stop();
   }
 
-  public MainGameScreen(DragonBoatRace game, Race race, ScrollingBackground bg) {
-    this.game = game;
-    this.race = race;
-    this.background = bg;
-
-    this.background.resize(Gdx.graphics.getWidth());
-
-    /* Font related items */
-    FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
-    FreeTypeFontGenerator.FreeTypeFontParameter parameter =
-        new FreeTypeFontGenerator.FreeTypeFontParameter();
-    parameter.size *= 10.0 / Settings.SCALAR;
-    parameter.color = Color.BLACK;
-    this.font = generator.generateFont(parameter);
-    this.layout = new GlyphLayout();
-
-    this.logger = new FPSLogger();
-
-    /* Countdown initialisation */
-    Timer.Task countDownTask = new Timer.Task() {
-      @Override
-      public void run() {
-        paused = true;
-        if (countDownRemaining == 3) {
-          countDownString = "READY";
-          countDownRemaining--;
-        } else if (countDownRemaining == 2) {
-          countDownString = "STEADY";
-          countDownRemaining--;
-        } else if (countDownRemaining == 1) {
-          countDownString = "GO";
-          countDownRemaining--;
-        } else {
-          countDownString = "";
-          paused = false;
-          this.cancel();
-        }
-      }
-    };
-    timer = new Timer();
-    timer.scheduleTask(countDownTask, 0, 1);
-    // We don't want the countdown to start before the screen has displayed.
-    timer.stop();
-
-  }
-
   /**
    * Runs when the window first starts. Runs the countdown starter.
    */
@@ -189,6 +159,10 @@ public class MainGameScreen implements Screen {
       this.background.render(game.getBatch());
       this.race.update(deltaTime, this.game);
       this.race.render(game.getBatch());
+
+      // P2: Help text for pausing
+      displayShortcutText();
+
     } else {
       this.background.render(game.getBatch());
       this.race.render(game.getBatch());
@@ -200,43 +174,44 @@ public class MainGameScreen implements Screen {
       displayPaused(isPaused());
     }
 
-
-//    if (getPaused() && Gdx.input)
-
-    // P2: Help text for when pausing
-
-    this.game.getBatch().end();
-
-    // P2
     // Pressing P now toggles pausing.
     // nb: only save the game when the game is paused.
-    if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
+    if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
       setPaused(!isPaused());
     }
 
-    // P2
-    // Currently (01-30), pressing O triggers the saving subroutine.
-//    if (getPaused() && Gdx.input.isKeyJustPressed(Input.Keys.O)) {
-//      (new SaveRestore(this)).Save(1);
-//    }
-
-    // Escape goes back to MainMenuScreen now.
-
-    if (isPaused() && Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-      this.game.setScreen(new MainMenuScreen(game));
-    }
-
-    // P2
-    // TODO: If slot is occupied, then show notification
+    // Q goes back to MainMenuScreen now.
 
     if (isPaused()) {
-      if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1))
-        (new SaveRestore(this)).Save(1);
-      else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_2))
-        (new SaveRestore(this)).Save(2);
-      else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_3))
-        (new SaveRestore(this)).Save(3);
+
+      if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
+
+        this.game.setScreen(new MainMenuScreen(game));
+
+      } else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)) {
+
+        saveTriggered = true;
+        saveSuccess = this.saveRestore.Save(0, this);
+
+      } else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)) {
+
+        saveTriggered = true;
+        saveSuccess = this.saveRestore.Save(1, this);
+
+      } else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_3)) {
+
+        saveTriggered = true;
+        saveSuccess = this.saveRestore.Save(2, this);
+
+      }
+
     }
+
+    if (saveTriggered) {
+      displaySaveStatus(saveSuccess);
+    }
+
+    this.game.getBatch().end();
 
   }
 
@@ -251,16 +226,74 @@ public class MainGameScreen implements Screen {
 
   // P2
 
+  private void displayShortcutText() {
+
+    FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
+    FreeTypeFontGenerator.FreeTypeFontParameter parameter =
+        new FreeTypeFontGenerator.FreeTypeFontParameter();
+//    parameter.size *= 10.0 / Settings.SCALAR;
+    parameter.size *= 4.0 / Settings.SCALAR;
+    parameter.color = new Color(0x7f7f7f7f);
+    BitmapFont f = generator.generateFont(parameter);
+
+    GlyphLayout g = new GlyphLayout();
+    g.setText(f, "Press Esc to pause the game.");
+//    font.draw(game.getBatch(), "Press P to pause the game.", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight());
+    // Gdx.graphics.getWidth() - layout.width - 100
+    f.draw(game.getBatch(), "Press Esc to pause the game.", Gdx.graphics.getWidth() - g.width - 32, g.height + 32);
+  }
+
   private void displayPaused(boolean paused) {
     String pausedStr = paused ? "Paused" : "";
 
     layout.setText(font, pausedStr);
     font.draw(game.getBatch(), pausedStr, (Gdx.graphics.getWidth() - layout.width) / 2,
-        Gdx.graphics.getHeight() / 2.0f);
+        Gdx.graphics.getHeight() * 2 / 3.0f);
 
     // TODO: display help string
 
+    StringBuilder pauseBuilder = new StringBuilder();
+    pauseBuilder.append("Press Esc to go back.\n");
+    pauseBuilder.append("Press Q to quit the game.\n");
 
+    for (int i = 0; i <= 2; i++){
+      pauseBuilder.append(
+          String.format(
+              "Press %d to %s slot %d\n", i + 1,
+              this.saveRestore.slotIsFree(i) ? "save to":"overwrite",
+              i + 1
+          )
+      );
+    }
+
+    FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
+    FreeTypeFontGenerator.FreeTypeFontParameter parameter =
+        new FreeTypeFontGenerator.FreeTypeFontParameter();
+    parameter.size *= 4.0 / Settings.SCALAR;
+    parameter.color = Color.BLACK;
+    BitmapFont f = generator.generateFont(parameter);
+
+    GlyphLayout g = new GlyphLayout();
+    g.setText(f, pauseBuilder);
+
+    f.draw(game.getBatch(), pauseBuilder, (Gdx.graphics.getWidth() - g.width) / 3,
+        Gdx.graphics.getHeight() / 3.0f);
+  }
+
+  public void displaySaveStatus(boolean saveSuccess) {
+
+    String statusText = saveSuccess ? "Save successful." : "Save failed.";
+
+    FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
+    FreeTypeFontGenerator.FreeTypeFontParameter parameter =
+        new FreeTypeFontGenerator.FreeTypeFontParameter();
+    parameter.size *= 4.0 / Settings.SCALAR;
+    parameter.color = Color.BLACK;
+    BitmapFont f = generator.generateFont(parameter);
+    GlyphLayout g = new GlyphLayout();
+
+    g.setText(f, statusText);
+    f.draw(game.getBatch(), statusText, (Gdx.graphics.getWidth() - g.width) / 3, layout.height + 16);
   }
 
   @Override
@@ -313,4 +346,15 @@ public class MainGameScreen implements Screen {
   }
 
 
+  @Override
+  public void postProcess() {
+    this.logger = new FPSLogger();
+    FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
+    FreeTypeFontGenerator.FreeTypeFontParameter parameter =
+        new FreeTypeFontGenerator.FreeTypeFontParameter();
+    parameter.size *= 10.0 / Settings.SCALAR;
+    parameter.color = Color.BLACK;
+    this.font = generator.generateFont(parameter);
+    this.layout = new GlyphLayout();
+  }
 }

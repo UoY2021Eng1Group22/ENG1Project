@@ -1,115 +1,138 @@
 package com.dragonboatrace.tools.state;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Json;
-import com.dragonboatrace.DragonBoatRace;
-import com.dragonboatrace.entities.Entity;
-import com.dragonboatrace.entities.Obstacle;
-import com.dragonboatrace.entities.ObstacleType;
-import com.dragonboatrace.entities.boats.Boat;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.dragonboatrace.screens.MainGameScreen;
-import com.dragonboatrace.tools.Lane;
-import com.dragonboatrace.tools.Race;
-import com.dragonboatrace.tools.ScrollingBackground;
 import com.google.gson.Gson;
-import java.util.ArrayList;
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
 
 // P2
 
 /**
  * SaveRestore class provides a simple workable interface for interacting with the Save/Restore functionality.
+ * <p>
+ * This class should only be instantiated in: RestoreScreen, MainGameScreen
  */
 public class SaveRestore {
 
-  private Race race;
-  private DragonBoatRace game;
-  private ScrollingBackground bg;
-  private Gson json;
+  private final Gson json;
+  private MainGameScreen[] slots;
+  private JsonReader jsonReader = null;
+  private JsonWriter jsonWriter = null;
+
+  public SaveRestore() {
+    this.json = JsonTool.buildGson();
+    this.slots = new MainGameScreen[3]; // Temporary storage as there is no persistence yet.
+    this.load();
+  }
+
+  public boolean Save(int slot, MainGameScreen screen) {
+
+    this.slots[slot] = screen;
+
+    // flush / serialise
+    return this.flush();
+  }
+
+  public MainGameScreen Restore(int slot) {
+    return this.slots[slot];
+  }
 
   /**
-   * Creates the SaveRestore class
-   *
-   * @param screen The game screen (that's currently shown to player.)
+   * load is a function that bootstraps the Array from the file, if exists. (adding persistence.)
    */
-  public SaveRestore(MainGameScreen screen) {
-    this.race = screen.getRace();
-    this.game = screen.getGame();
-    this.bg = screen.getBackground();
-    this.json = JsonTool.buildGson();
-  }
+  private void load() {
 
-  public void Save(int slot) {
+    Reader r = null;
+    Writer w = null;
 
-    Boat b = race.getBoats().get(0);
-    Lane l = b.getLane();
-    ArrayList<Obstacle> os = l.getObstacles();
-    Obstacle o = os.get(0);
-    String ser = json.toJson(o);
-    Obstacle deo = json.fromJson(ser, Obstacle.class);
-//    deo.post
+    // Gdx.files.isLocalStorageAvailable();
 
-    Gdx.app.log("obj", o.getPosition().toString());
-    Gdx.app.log("de", deo.getPosition().toString());
-    Gdx.app.log("obj", String.valueOf(o.getDamage()));
-    Gdx.app.log("de", String.valueOf(deo.getDamage()));
-    Gdx.app.log("obj", o.getObstacleType().toString());
-    Gdx.app.log("de", deo.getObstacleType().toString());
+    // Get the local save file handle.
+    FileHandle handle = Gdx.files.local("saves.json");
 
-    Gdx.app.log("serialise", ser);
-    Gdx.app.log("bg", json.toJson(bg));
+    try {
+      r = handle.reader();
+    } catch (GdxRuntimeException gex) {
+      Gdx.app.error("LOAD", "Could not read the saves.json file.", gex);
+    }
 
-//    Gdx.app.
+    if (r != null) {
+      this.jsonReader = this.json.newJsonReader(r);
+    }
 
-    Gdx.app.log("de2", deo.getTexture().toString());
+    try {
+      w = handle.writer(true);
+    } catch (GdxRuntimeException gex) {
+      Gdx.app.error("SAVE", "Could not get the file writer.", gex);
+    }
 
-//    Json j = new Json();
-//    Gdx.app.log("gdx", j.toJson(o.getTexture()));
-//    Gdx.app.log("gdx", j.toJson(o.getPosition()));
-//
-//    Gdx.app.log("obj", o.getTexture().toString());
+    if (w != null) {
+      try {
+        this.jsonWriter = this.json.newJsonWriter(w);
+      } catch (IOException ex) {
+        Gdx.app.error("SAVE", "Could not initialise the JSON writer.", ex);
+      }
+    }
 
-//    game.
+    if (jsonReader != null) {
 
-    // get all boats
+      try {
 
-    // new save file structure
+        MainGameScreen[] fileContent = json.fromJson(jsonReader, MainGameScreen[].class);
+        if (fileContent != null)
+          this.slots = fileContent;
+      } catch (JsonIOException ioEx) {
+        Gdx.app.error("LOAD", "Problem from JSON I/O.", ioEx);
+      } catch (JsonSyntaxException synEx) {
+        Gdx.app.error("LOAD", "Problem from JSON syntax.", synEx);
+      }
 
-//        StateFile state = new StateFile();
-
-    // convert to json
-
-//        json.toJson(state);
-
-    // save to file
+    }
 
   }
 
-//    private boolean
-
-  public void Restore() {
-    // read from file
-    // deserialize
-    // restore everything into respective class
+  /**
+   * Is a certain slot empty?
+   * @param slot slot number.
+   * @return if it is free.
+   */
+  public boolean slotIsFree(int slot) {
+    try {
+      return this.slots[slot] == null;
+    } catch (NullPointerException ex) {
+      return true;
+    }
   }
 
-  // === getters/setters
+  /**
+   * Flushes the game state array to disk.
+   * @return if the flushing is successful.
+   */
+  private boolean flush() {
+    // can't flush to the file because the file could not be written.
+    if (this.jsonWriter == null) {
+      return false;
+    }
 
-  public Race getRace() {
-    return race;
+    try {
+      json.toJson(this.slots, MainGameScreen[].class, this.jsonWriter);
+      this.jsonWriter.flush();
+      return true;
+    } catch (JsonIOException | IOException ex) {
+      Gdx.app.error("FLUSH", "Problem flushing the file to disk.", ex);
+    }
+    return false;
   }
 
-  public void setRace(Race race) {
-    this.race = race;
+  public MainGameScreen[] getSlots() {
+    return slots;
   }
-
-  public DragonBoatRace getGame() {
-    return game;
-  }
-
-  public void setGame(DragonBoatRace game) {
-    this.game = game;
-  }
-
-
 }
