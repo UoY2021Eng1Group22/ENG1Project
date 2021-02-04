@@ -10,6 +10,8 @@ public enum ObstacleType {
   ROCK("rock.png", 50, 20),
   BRANCH("branch.png", 60, 10),
   LEAF("leaf.png", 75, 5),
+
+  // These below are new
   HEAL("heal.png", 50, -30),
   SPEED("speed.png", 50, 0),
   STAMINA("stamina.png", 50, 0),
