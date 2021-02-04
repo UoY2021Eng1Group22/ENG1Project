@@ -300,7 +300,7 @@ public class Boat extends Entity {
 
     /**
      * Check for collisions by getting the contents of the lane and checking their positions to the boat position.
-     *
+     * Changes attributes of boat upon collision with a power-up
      * @return True if a collision occurred, False if no collision.
      */
     protected boolean checkCollisions() {
