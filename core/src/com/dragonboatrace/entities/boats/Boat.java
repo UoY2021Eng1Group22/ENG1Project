@@ -19,7 +19,7 @@ import java.util.ArrayList;
 /**
  * Represents a generic Boat.
  *
- * @author Benji Garment, Joe Wrieden
+ * @author Benji Garment, Joe Wrieden, Tom Clark
  */
 public class Boat extends Entity {
 

@@ -3,7 +3,7 @@ package com.dragonboatrace.entities;
 /**
  * Represents a type of obstacle or power-up.
  *
- * @author Benji Garment, Joe Wrieden, Tom Clark, Josh Guy
+ * @author Benji Garment, Joe Wrieden, Tom Clark
  */
 public enum ObstacleType {
     /* ENUM(texture, speed, damage)*/
