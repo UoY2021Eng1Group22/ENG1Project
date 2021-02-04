@@ -567,8 +567,12 @@ public abstract class Boat extends Entity implements PostProcessable {
   // P2
   @Override
   public void postProcess() {
+
+    super.postProcess();
+    System.out.println("hydrate - boat");
+
     this.setTexture(boatType.getImageSrc());
-    laneBox = lane.getHitbox();
+    this.laneBox = this.lane.getHitbox();
 
     /* Setup fonts to use in the HUD */
     this.generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
@@ -583,6 +587,9 @@ public abstract class Boat extends Entity implements PostProcessable {
     layout.setText(nameFont, this.name);
     if (this.layout.width > this.laneBox.getWidth()) {
       parameter.size = (int) (50 / (this.layout.width / this.laneBox.getWidth()));
+      System.out.println(this.layout.width);
+      System.out.println(this.laneBox.getWidth());
+      System.out.println(parameter.size);
       parameter.color = Color.BLACK;
       nameFont = generator.generateFont(parameter);
     }

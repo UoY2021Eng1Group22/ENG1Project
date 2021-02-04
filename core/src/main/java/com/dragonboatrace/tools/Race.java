@@ -36,7 +36,7 @@ public class Race implements PostProcessable {
    * The list of boats in the race, not including the player.
    */
   @Expose
-  private final ArrayList<Boat> boats;
+  private final ArrayList<ComputerBoat> computerBoats;
   /**
    * The players boat.
    */
@@ -74,10 +74,10 @@ public class Race implements PostProcessable {
 
     this.barrier = new Texture("line.png");
 
-    boats = new ArrayList<>();
+    computerBoats = new ArrayList<>();
     for (int i = 1; i < Settings.PLAYER_COUNT; i++) {
       int rand = ThreadLocalRandom.current().nextInt(0, BoatType.values().length);
-      boats.add(
+      computerBoats.add(
           new ComputerBoat(BoatType.values()[rand], new Lane(new Vector2(size * i, 0), size, round),
               "COMP" + i, i));
     }
@@ -97,7 +97,7 @@ public class Race implements PostProcessable {
     if (player.getHealth() <= 0) {
       game.setScreen(new GameOverScreen(game, "Your boat is broken. Better luck next time!"));
     }
-    for (Boat boat : this.boats) {
+    for (Boat boat : this.computerBoats) {
 
       ((ComputerBoat) boat)
           .updateYPosition(player.getHitBox().getY(), player.getDistanceTravelled());
@@ -112,7 +112,7 @@ public class Race implements PostProcessable {
       player.setTime(Math.round((System.nanoTime() - this.timer) / 10000000) / (float) 100);
       player.setTotalTime(player.getTime());
       ArrayList<Float> dnfList = new ArrayList<>();
-      for (Boat boat : boats) {
+      for (Boat boat : computerBoats) {
         if (boat.getTime() == 0) {
           dnfList.add(boat.getDistanceTravelled());
         }
@@ -120,7 +120,7 @@ public class Race implements PostProcessable {
       Collections.sort(dnfList);
       Collections.reverse(dnfList);
       for (float dist : dnfList) {
-        for (Boat boatN : boats) {
+        for (Boat boatN : computerBoats) {
           if (boatN.getDistanceTravelled() == dist) {
             switch (dnfList.indexOf(dist) + 1) {
               case 1:
@@ -151,7 +151,7 @@ public class Race implements PostProcessable {
   public void render(SpriteBatch batch) {
     theFinish.render(batch);
     player.render(batch);
-    for (Boat boat : this.boats) {
+    for (Boat boat : this.computerBoats) {
       boat.render(batch);
     }
     for (int i = 0; i < Settings.PLAYER_COUNT; i++) {
@@ -167,16 +167,16 @@ public class Race implements PostProcessable {
    */
   public void getLeaderBoard(DragonBoatRace game) {
 
-//    ArrayList<Boat> b = new ArrayList<>();
-//    b.addAll(this.boats);
-//    b.add(player);
+    ArrayList<Boat> boats = new ArrayList<>();
+    boats.addAll(this.computerBoats);
+    boats.add(player);
 
     ArrayList<Float> times = new ArrayList<>();
     String reason = "";
     player.setTime(this.player.getPenaltyTime());
 
     times.add(player.getTime());
-    for (Boat boatN : boats) {
+    for (Boat boatN : computerBoats) {
       times.add(boatN.getTime());
     }
 
@@ -192,7 +192,7 @@ public class Race implements PostProcessable {
     }
 
     for (float time : times) {
-      for (Boat boatN : boats) {
+      for (Boat boatN : computerBoats) {
         if (boatN.getTime() == time) {
           switch (times.indexOf(time) + 1) {
             case 1:
@@ -262,22 +262,14 @@ public class Race implements PostProcessable {
   }
 
   public void dispose() {
-    for (Boat boat : this.boats) {
+    for (Boat boat : this.computerBoats) {
       boat.dispose();
     }
     this.theFinish.dispose();
     this.barrier.dispose();
   }
 
-  // ===
-
-  public ArrayList<Boat> getBoats() {
-    return boats;
-  }
-
-  public FinishLine getFinishLine() {
-    return theFinish;
-  }
+  // P2
 
   @Override
   public void postProcess() {

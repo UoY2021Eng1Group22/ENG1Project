@@ -22,7 +22,7 @@ public class ComputerBoat extends Boat implements PostProcessable {
   /**
    * The area in which the computer boat will look for obstacles to avoid.
    */
-  private Hitbox moveArea;
+  private Hitbox moveArea; // P2 - hydrate
 
   /**
    * The x-offset of the moveArea as the area is equal on both sides of the boat.
@@ -256,6 +256,14 @@ public class ComputerBoat extends Boat implements PostProcessable {
 
   @Override
   public void postProcess() {
+
+    super.postProcess();
+
+    System.out.println("hydrate - cboat");
+
+//    this.hitbox = new Hitbox((int) position.x, (int) position.y, entityType.getWidth(), entityType.getHeight());
+
+
     this.up = new Texture("up_arrow.png");
     this.down = new Texture("down_arrow.png");
 
