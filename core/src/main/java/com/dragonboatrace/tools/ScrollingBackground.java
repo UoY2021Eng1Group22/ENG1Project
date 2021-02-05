@@ -3,6 +3,7 @@ package com.dragonboatrace.tools;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dragonboatrace.tools.state.PostProcessable;
 import com.google.gson.annotations.Expose;
 
 /**
@@ -10,19 +11,19 @@ import com.google.gson.annotations.Expose;
  *
  * @author Benji Garment, Joe Wrieden
  */
-public class ScrollingBackground {
+public class ScrollingBackground implements PostProcessable {
 
   /**
    * The texture to use as the background.
    */
-  private final Texture image;
+  private Texture image; // P2 - hydrate
 
   // P2: checkstyle
   /**
    * The x position that both the images use to align vertically.
    */
   @Expose // P2
-  private final float xposition;
+  private float xposition;
   /**
    * The y position of the first image.
    */
@@ -36,6 +37,7 @@ public class ScrollingBackground {
   /**
    * The scale at which to draw the background.
    */
+  @Expose
   private float imageScale;
 
   /**
@@ -91,6 +93,7 @@ public class ScrollingBackground {
         image.getHeight() * imageScale);
     batch.draw(image, this.xposition, y2, image.getWidth() * imageScale,
         image.getHeight() * imageScale);
+
   }
 
   /**
@@ -118,5 +121,12 @@ public class ScrollingBackground {
 
   public float getXposition() {
     return xposition;
+  }
+
+  @Override
+  public void postProcess() {
+    this.image = new Texture(Gdx.files.local("background.png"));
+//    this.imageScale = 1;
+//    this.xposition = 0;
   }
 }

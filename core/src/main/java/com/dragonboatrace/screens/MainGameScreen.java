@@ -30,11 +30,11 @@ public class MainGameScreen implements Screen, PostProcessable {
    * The game instance.
    */
   @Expose
-  private final DragonBoatRace game;
+  private DragonBoatRace game;
   /**
    * Used to make sure the countdown happens at equal intervals.
    */
-  private final Timer timer;
+  private Timer timer; // P2 - hydrate
   /**
    * The race instance.
    */
@@ -84,6 +84,8 @@ public class MainGameScreen implements Screen, PostProcessable {
   @Expose // ?
   private boolean gameHasStarted = false;
 
+  private Timer.Task countDownTask;
+
   /**
    * Creates a new game screen with a game instance.
    *
@@ -110,7 +112,7 @@ public class MainGameScreen implements Screen, PostProcessable {
     this.layout = new GlyphLayout();
 
     /* Countdown initialisation */
-    Timer.Task countDownTask = new Timer.Task() {
+    this.countDownTask = new Timer.Task() {
       @Override
       public void run() {
         paused = true;
@@ -131,17 +133,18 @@ public class MainGameScreen implements Screen, PostProcessable {
         }
       }
     };
-    timer = new Timer();
-    timer.scheduleTask(countDownTask, 0, 1);
+    this.timer = new Timer();
+    this.timer.scheduleTask(countDownTask, 0, 1);
     // We don't want the countdown to start before the screen has displayed.
-    timer.stop();
+    this.timer.stop();
   }
 
   /**
    * Runs when the window first starts. Runs the countdown starter.
    */
   public void show() {
-    timer.start();
+    this.timer.start();
+    this.saveRestore = new SaveRestore();
   }
 
   /**
@@ -339,12 +342,15 @@ public class MainGameScreen implements Screen, PostProcessable {
     return race;
   }
 
-  // test: constructor
+  // P2
 
   public ScrollingBackground getBackground() {
     return background;
   }
 
+  protected void setGame(DragonBoatRace game) {
+    this.game = game;
+  }
 
   @Override
   public void postProcess() {
@@ -356,5 +362,37 @@ public class MainGameScreen implements Screen, PostProcessable {
     parameter.color = Color.BLACK;
     this.font = generator.generateFont(parameter);
     this.layout = new GlyphLayout();
+
+
+    /* Countdown initialisation */
+    this.countDownTask = new Timer.Task() {
+      @Override
+      public void run() {
+        paused = true;
+        if (countDownRemaining == 3) {
+          countDownString = "READY";
+          countDownRemaining--;
+        } else if (countDownRemaining == 2) {
+          countDownString = "STEADY";
+          countDownRemaining--;
+        } else if (countDownRemaining == 1) {
+          countDownString = "GO";
+          countDownRemaining--;
+        } else {
+          countDownString = "";
+          paused = false;
+          gameHasStarted = true;
+          this.cancel();
+        }
+      }
+    };
+    this.timer = new Timer();
+    this.timer.scheduleTask(countDownTask, 0, 1);
+    // We don't want the countdown to start before the screen has displayed.
+    this.timer.stop();
+
+//    this.paused = true;
+    System.out.println(this.getBackground().getY1());
+
   }
 }

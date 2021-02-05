@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragonboatrace.screens.MainMenuScreen;
 import com.dragonboatrace.tools.Settings;
+import com.dragonboatrace.tools.state.PostProcessable;
 import com.dragonboatrace.tools.state.SaveRestore;
 import com.google.gson.annotations.Expose;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
  *
  * @author Benji Garment, Joe Wrieden
  */
-public class DragonBoatRace extends Game {
+public class DragonBoatRace extends Game implements PostProcessable {
 
   /**
    * The Spritebatch used to group all renders.
@@ -87,5 +88,10 @@ public class DragonBoatRace extends Game {
 
   public ArrayList<Float> getTotalTimes() {
     return this.totalTimes;
+  }
+
+  @Override
+  public void postProcess() {
+    this.batch = new SpriteBatch();
   }
 }

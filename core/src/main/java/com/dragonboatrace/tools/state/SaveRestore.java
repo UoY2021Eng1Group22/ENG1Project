@@ -3,6 +3,7 @@ package com.dragonboatrace.tools.state;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.dragonboatrace.DragonBoatRace;
 import com.dragonboatrace.screens.MainGameScreen;
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
@@ -42,7 +43,8 @@ public class SaveRestore {
   }
 
   public MainGameScreen Restore(int slot) {
-    return this.slots[slot];
+    MainGameScreen screen = this.slots[slot];
+    return screen;
   }
 
   /**

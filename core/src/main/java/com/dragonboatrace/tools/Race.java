@@ -45,6 +45,7 @@ public class Race implements PostProcessable {
   /**
    * The finish line.
    */
+  @Expose
   private FinishLine theFinish; // P2 /// not final - postProcess
   /**
    * The separator between each lane.
@@ -102,8 +103,8 @@ public class Race implements PostProcessable {
       ((ComputerBoat) boat)
           .updateYPosition(player.getHitBox().getY(), player.getDistanceTravelled());
       boat.update(deltaTime);
-      if (boat.getDistanceTravelled() + this.theFinish.getHitBox().getHeight() >= this.length &&
-          boat.getTime() == 0) {
+      if (boat.getDistanceTravelled() + this.theFinish.getHitBox().getHeight() >= this.length
+          && boat.getTime() == 0) {
         boat.setTime(Math.round((System.nanoTime() - this.timer) / 10000000) / (float) 100);
         boat.setTotalTime(boat.getTime());
       }
@@ -170,8 +171,8 @@ public class Race implements PostProcessable {
     ArrayList<Boat> boats = new ArrayList<>();
     boats.addAll(this.computerBoats);
     System.out.println(boats.size());
-//    boats.add(player);
-//    System.out.println(boats.size());
+    boats.add(player);
+    System.out.println(boats.size());
 
     ArrayList<Float> times = new ArrayList<>();
     String reason = "";

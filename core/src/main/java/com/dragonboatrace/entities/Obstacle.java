@@ -114,6 +114,7 @@ public class Obstacle extends Entity {
 
   @Override
   public void postProcess() {
+    super.postProcess();
     this.setTexture(obstacleType.getTexture());
   }
 
