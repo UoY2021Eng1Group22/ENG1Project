@@ -50,8 +50,4 @@ public class JsonTool {
     return builder.create();
   }
 
-  static Json getJson() {
-    return new Json();
-  }
-
 }

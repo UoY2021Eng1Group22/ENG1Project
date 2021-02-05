@@ -93,7 +93,6 @@ public class ScrollingBackground implements PostProcessable {
         image.getHeight() * imageScale);
     batch.draw(image, this.xposition, y2, image.getWidth() * imageScale,
         image.getHeight() * imageScale);
-
   }
 
   /**

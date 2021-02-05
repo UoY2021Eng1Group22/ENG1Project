@@ -189,6 +189,7 @@ public abstract class Boat extends Entity implements PostProcessable {
     this.totalTime = 0;
     this.penaltyTime = 0;
 
+    // New boolean variable
     this.shield = false;
 
     /* Store the lanes hit box to save time on using Getters. */
@@ -339,11 +340,13 @@ public abstract class Boat extends Entity implements PostProcessable {
         obstacle.dispose();
         this.lane.removeObstacle(obstacle);
 
-        // TODO: we can do better.
-
+        /**
+         * This switch case is new.
+         * Switches on the obstacles texture (as each unique powerup has a unique texture)
+         */
         switch (obstacle.getObstacleType().getTexture()) {
           case "stamina.png":
-
+            // Adds stamina, up to the max
             if (this.stamina + 50 > this.boatType.getStamina()) {
               this.stamina = this.boatType.getStamina();
             } else {
@@ -351,9 +354,11 @@ public abstract class Boat extends Entity implements PostProcessable {
             }
             return false;
           case "speed.png":
+            // Adds speed
             this.speed += 30;
             return false;
           case "heal.png":
+            // Adds health, to the max
             if ((this.health -= obstacle.getDamage()) > this.boatType.getHealth()) {
               this.health = this.boatType.getHealth();
             } else {
@@ -361,6 +366,7 @@ public abstract class Boat extends Entity implements PostProcessable {
             }
             return false;
           case "shield.png":
+            // Applies a shield
             if (!(this.shield)) {
               this.shield = true;
             }
@@ -368,11 +374,12 @@ public abstract class Boat extends Entity implements PostProcessable {
 
 
           case "agility.png":
+            // Adds agility
             this.agility += 30;
             return false;
 
           default:
-            //if the player has a shield powerup, the damage and slowdown is blocked
+            //if the player has a shield powerup, the damage and slowdown is blocked from regular obstacles.
             if (!(this.shield)) {
               size--;
               this.health -= obstacle.getDamage();

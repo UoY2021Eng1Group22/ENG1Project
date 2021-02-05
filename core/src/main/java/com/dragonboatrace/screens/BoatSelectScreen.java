@@ -19,7 +19,7 @@ import com.dragonboatrace.tools.Settings;
  *
  * @author Benji Garment, Joe Wrieden
  */
-class BoatSelectScreen implements Screen { // P2 - no need to be public
+public class BoatSelectScreen implements Screen {
 
   /**
    * Texture of the fast boat preview.

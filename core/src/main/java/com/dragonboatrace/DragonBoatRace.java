@@ -67,7 +67,7 @@ public class DragonBoatRace extends Game implements PostProcessable {
   }
 
   public void setRound(int i) {
-    this.round += i;
+    this.round = i;
   }
 
   public void upRound() {
