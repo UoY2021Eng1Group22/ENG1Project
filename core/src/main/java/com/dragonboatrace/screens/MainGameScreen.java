@@ -224,6 +224,8 @@ public class MainGameScreen implements Screen {
 
     if (isPaused() && Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
       this.game.setScreen(new MainMenuScreen(game));
+      this.game.setRound(1);
+      Settings.setPlayerCount(8);
     }
 
     // P2

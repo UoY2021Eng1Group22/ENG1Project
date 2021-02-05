@@ -66,7 +66,7 @@ public class DragonBoatRace extends Game {
   }
 
   public void setRound(int i) {
-    this.round += i;
+    this.round = i;
   }
 
   public void upRound() {

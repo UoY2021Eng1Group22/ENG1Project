@@ -98,6 +98,7 @@ public class GameOverScreen implements Screen {
 
     if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
       this.game.setScreen(new MainMenuScreen(this.game));
+
     }
 
     this.game.getBatch().end();
