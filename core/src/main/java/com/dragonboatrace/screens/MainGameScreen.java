@@ -30,7 +30,7 @@ public class MainGameScreen implements Screen, PostProcessable {
    * The game instance.
    */
   @Expose
-  private DragonBoatRace game;
+  private DragonBoatRace game; // P2
   /**
    * Used to make sure the countdown happens at equal intervals.
    */
@@ -351,7 +351,7 @@ public class MainGameScreen implements Screen, PostProcessable {
     return background;
   }
 
-  protected void setGame(DragonBoatRace game) {
+  public void setGame(DragonBoatRace game) {
     this.game = game;
   }
 

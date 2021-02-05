@@ -90,6 +90,10 @@ public class DragonBoatRace extends Game implements PostProcessable {
     return this.totalTimes;
   }
 
+  public void setTotalTimes(ArrayList<Float> totalTimes) {
+    this.totalTimes = totalTimes;
+  }
+
   @Override
   public void postProcess() {
     this.batch = new SpriteBatch();

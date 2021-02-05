@@ -46,8 +46,15 @@ public class SaveRestore {
     return this.flush();
   }
 
-  public MainGameScreen Restore(int slot) {
+  public MainGameScreen Restore(int slot, DragonBoatRace game) {
     MainGameScreen screen = this.slots[slot];
+
+    // getting previous values in previous game
+
+    game.setRound(screen.getGame().getRound());
+    game.setPlayerTotalTime(screen.getGame().getPlayerTotalTime());
+    game.setTotalTimes(screen.getGame().getTotalTimes());
+    screen.setGame(game);
     return screen;
   }
 
