@@ -126,7 +126,5 @@ public class ScrollingBackground implements PostProcessable {
   @Override
   public void postProcess() {
     this.image = new Texture(Gdx.files.local("background.png"));
-//    this.imageScale = 1;
-//    this.xposition = 0;
   }
 }

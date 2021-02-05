@@ -3,6 +3,7 @@ package com.dragonboatrace.tools.state;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.badlogic.gdx.utils.Json;
 import com.dragonboatrace.DragonBoatRace;
 import com.dragonboatrace.screens.MainGameScreen;
 import com.google.gson.Gson;
@@ -27,6 +28,7 @@ public class SaveRestore {
   private MainGameScreen[] slots;
   private JsonReader jsonReader = null;
   private JsonWriter jsonWriter = null;
+  private String temp;
 
   public SaveRestore() {
     this.json = JsonTool.buildGson();
@@ -37,6 +39,8 @@ public class SaveRestore {
   public boolean Save(int slot, MainGameScreen screen) {
 
     this.slots[slot] = screen;
+//    Json j = JsonTool.getJson();
+//    temp = j.toJson(screen);
 
     // flush / serialise
     return this.flush();
@@ -53,7 +57,6 @@ public class SaveRestore {
   private void load() {
 
     Reader r = null;
-    Writer w = null;
 
     // Gdx.files.isLocalStorageAvailable();
 
@@ -67,28 +70,16 @@ public class SaveRestore {
     }
 
     if (r != null) {
+      System.out.println("json-reader");
       this.jsonReader = this.json.newJsonReader(r);
-    }
-
-    try {
-      w = handle.writer(true);
-    } catch (GdxRuntimeException gex) {
-      Gdx.app.error("SAVE", "Could not get the file writer.", gex);
-    }
-
-    if (w != null) {
-      try {
-        this.jsonWriter = this.json.newJsonWriter(w);
-      } catch (IOException ex) {
-        Gdx.app.error("SAVE", "Could not initialise the JSON writer.", ex);
-      }
     }
 
     if (jsonReader != null) {
 
       try {
-
+        System.out.println("reading");
         MainGameScreen[] fileContent = json.fromJson(jsonReader, MainGameScreen[].class);
+        System.out.println("read.");
         if (fileContent != null)
           this.slots = fileContent;
       } catch (JsonIOException ioEx) {
@@ -119,6 +110,24 @@ public class SaveRestore {
    * @return if the flushing is successful.
    */
   private boolean flush() {
+
+    Writer w = null;
+    FileHandle handle = Gdx.files.local("saves.json");
+
+    try {
+      w = handle.writer(false);
+    } catch (GdxRuntimeException gex) {
+      Gdx.app.error("SAVE", "Could not get the file writer.", gex);
+    }
+
+    if (w != null) {
+      try {
+        this.jsonWriter = this.json.newJsonWriter(w);
+      } catch (IOException ex) {
+        Gdx.app.error("SAVE", "Could not initialise the JSON writer.", ex);
+      }
+    }
+
     // can't flush to the file because the file could not be written.
     if (this.jsonWriter == null) {
       return false;

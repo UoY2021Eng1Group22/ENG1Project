@@ -1,6 +1,7 @@
 package com.dragonboatrace.tools.state;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Json;
 import com.dragonboatrace.entities.Entity;
 import com.dragonboatrace.entities.Obstacle;
 import com.dragonboatrace.entities.boats.Boat;
@@ -47,6 +48,10 @@ public class JsonTool {
 
     // build and set the Gson instance
     return builder.create();
+  }
+
+  static Json getJson() {
+    return new Json();
   }
 
 }

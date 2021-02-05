@@ -3,6 +3,7 @@ package com.dragonboatrace.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.dragonboatrace.tools.state.PostProcessable;
 import com.google.gson.annotations.Expose;
 
 /**
@@ -10,7 +11,7 @@ import com.google.gson.annotations.Expose;
  *
  * @author Benji Garment, Joe Wrieden
  */
-public class FinishLine extends Entity {
+public class FinishLine extends Entity implements PostProcessable {
 
   /**
    * The scale at which to render at.
@@ -57,5 +58,12 @@ public class FinishLine extends Entity {
   public void render(SpriteBatch batch) {
     batch.draw(this.texture, this.position.x, this.position.y,
         this.texture.getWidth() * this.widthScale, this.texture.getHeight());
+  }
+
+  @Override
+  public void postProcess() {
+    System.out.println("hydrate - finish line");
+    super.postProcess();
+    System.out.println(this.getHitBox());
   }
 }

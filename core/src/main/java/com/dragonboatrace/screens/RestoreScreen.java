@@ -62,12 +62,12 @@ class RestoreScreen implements Screen {
 
 
 
-    if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_4)) {
+    if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)) {
       System.out.println(saveRestore.Restore(0));
       this.game.setScreen(saveRestore.Restore(0));
-    } else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_5)) {
+    } else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)) {
       this.game.setScreen(saveRestore.Restore(1));
-    } else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_6)) {
+    } else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_3)) {
       this.game.setScreen(saveRestore.Restore(2));
     }
   }
