@@ -366,6 +366,7 @@ public class MainGameScreen implements Screen, PostProcessable {
     this.font = generator.generateFont(parameter);
     this.layout = new GlyphLayout();
 
+    this.countDownRemaining = 3;
 
     /* Countdown initialisation */
     this.countDownTask = new Timer.Task() {
@@ -392,10 +393,9 @@ public class MainGameScreen implements Screen, PostProcessable {
     this.timer = new Timer();
     this.timer.scheduleTask(countDownTask, 0, 1);
     // We don't want the countdown to start before the screen has displayed.
-    this.timer.stop();
 
-//    this.paused = true;
-    System.out.println(this.getBackground().getY1());
+    this.paused = true;
+    this.timer.start();
 
   }
 }
