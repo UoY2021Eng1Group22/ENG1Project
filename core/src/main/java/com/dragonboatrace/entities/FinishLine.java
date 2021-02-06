@@ -64,6 +64,5 @@ public class FinishLine extends Entity implements PostProcessable {
   public void postProcess() {
     System.out.println("hydrate - finish line");
     super.postProcess();
-    System.out.println(this.getHitBox());
   }
 }
