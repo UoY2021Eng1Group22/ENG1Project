@@ -107,20 +107,6 @@ public class ScrollingBackground implements PostProcessable {
   }
 
   // P2
-  // getters for the Y1, Y2, and xPosition values
-  // for serialisation
-
-  public float getY1() {
-    return y1;
-  }
-
-  public float getY2() {
-    return y2;
-  }
-
-  public float getXposition() {
-    return xposition;
-  }
 
   @Override
   public void postProcess() {
