@@ -68,12 +68,13 @@ public class MainMenuScreen implements Screen {
             250f / Settings.SCALAR), "help_button_active.png", "help_button_inactive.png");
     this.logo = new Texture("dragon.png");
 
+    // P2
     this.restoreButton = new Button(
         new Vector2((
             Gdx.graphics.getWidth() - EntityType.BUTTON.getWidth()) / 2.0f,
             400f / Settings.SCALAR),
-        "play_button_active.png",
-        "play_button_inactive.png"
+        "load_button_active.png",
+        "load_button_inactive.png"
     );
 
     logoxoffset = 680f / Settings.SCALAR;

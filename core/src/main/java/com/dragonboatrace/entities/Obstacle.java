@@ -52,22 +52,6 @@ public class Obstacle extends Entity {
     this.obstacleType = obstacleType;
   }
 
-  // P2
-  /**
-   * Recreating a single obstacle with the exact state.
-   *
-   * @param obstacleType Type of obstacle.
-   * @param position position of the obstacle.
-   * @param velocity velocity of the obstacle.
-   */
-  public Obstacle(ObstacleType obstacleType, Vector2 position, Vector2 velocity) {
-    super(position, velocity, EntityType.OBSTACLE, obstacleType.getTexture());
-    this.speed = obstacleType.getSpeed();
-    this.damage = obstacleType.getDamage();
-
-    this.obstacleType = obstacleType;
-  }
-
   /**
    * Update the obstacle's position relative to the time passed since last frame and the velocity of the boat in that lane.
    *
