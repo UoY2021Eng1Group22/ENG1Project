@@ -345,7 +345,7 @@ public abstract class Boat extends Entity implements PostProcessable {
          * Switches on the obstacles texture (as each unique powerup has a unique texture)
          */
         switch (obstacle.getObstacleType().getTexture()) {
-          case "stamina.png":
+          case "Stamina.png":
             // Adds stamina, up to the max
             if (this.stamina + 50 > this.boatType.getStamina()) {
               this.stamina = this.boatType.getStamina();
@@ -353,11 +353,11 @@ public abstract class Boat extends Entity implements PostProcessable {
               this.stamina += 50;
             }
             return false;
-          case "speed.png":
+          case "Speed.png":
             // Adds speed
             this.speed += 30;
             return false;
-          case "heal.png":
+          case "Heal.png":
             // Adds health, to the max
             if ((this.health -= obstacle.getDamage()) > this.boatType.getHealth()) {
               this.health = this.boatType.getHealth();
@@ -365,7 +365,7 @@ public abstract class Boat extends Entity implements PostProcessable {
               this.health -= obstacle.getDamage();
             }
             return false;
-          case "shield.png":
+          case "Shield.png":
             // Applies a shield
             if (!(this.shield)) {
               this.shield = true;
@@ -373,7 +373,7 @@ public abstract class Boat extends Entity implements PostProcessable {
             return false;
 
 
-          case "agility.png":
+          case "Agility.png":
             // Adds agility
             this.agility += 30;
             return false;
