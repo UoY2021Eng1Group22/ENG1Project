@@ -1,4 +1,4 @@
-name: Build and Release
+name: Dist
 
 on:
   push:
@@ -8,12 +8,10 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-20.04
-
     steps:
       - uses: actions/checkout@v2
-      - name: Set up JDK 11
+      - name: Setup JDK
         uses: actions/setup-java@v1
         with:
           java-version: 11
@@ -21,8 +19,16 @@ jobs:
         run: chmod +x gradlew
       - name: Build distribution with Gradle
         run: ./gradlew desktop:dist
-      - name: Release artifact
+      - name: Fetch artifact
         uses: actions/upload-artifact@v2
         with:
           name: release
           path: desktop/build/libs/dragonboatrace-1.2.jar
+      - name: Create release with artifact
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.run_number }}
+          release_name: v1.2.${{ github.run_number }}
