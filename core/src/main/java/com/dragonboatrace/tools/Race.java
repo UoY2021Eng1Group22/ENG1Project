@@ -170,21 +170,16 @@ public class Race implements PostProcessable {
 
     ArrayList<Boat> boats = new ArrayList<>();
     boats.addAll(this.computerBoats);
-    System.out.println(boats.size());
-    boats.add(player);
-    System.out.println(boats.size());
 
     ArrayList<Float> times = new ArrayList<>();
     String reason = "";
     player.setTime(this.player.getPenaltyTime());
 
-    System.out.println(times.size());
     times.add(player.getTime());
-    System.out.println(times.size());
+
     for (Boat boatN : boats) {
       times.add(boatN.getTime());
     }
-    System.out.println(times.size());
 
     game.setPlayerTotalTime(times.get(0));
     for (int i = 0; i < Settings.PLAYER_COUNT; i++) {
@@ -197,13 +192,10 @@ public class Race implements PostProcessable {
       times.set(times.indexOf(dup.get(0)), (float) (times.get(times.indexOf(dup.get(0))) + 0.02));
     }
 
-    System.out.println("times.size() " + times.size());
-
     for (float time : times) {
       for (Boat boatN : boats) {
         if (boatN.getTime() == time) {
-          System.out.println(String.format("boat %s time:%f  time time:%f ",
-                  boatN.getName(), boatN.getTime(), time));
+
           switch (times.indexOf(time) + 1) {
             case 1:
               if (game.getRound() == 4) {
