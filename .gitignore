@@ -115,3 +115,7 @@ Thumbs.db
 /ios/IOSLauncher.app.dSYM
 
 .vscode/
+
+## custom side-effects
+
+desktop/saves.json

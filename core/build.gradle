@@ -8,6 +8,7 @@ targetCompatibility = 1.8 // P2
 
 sourceSets.main.java.srcDir "src/main/java"
 sourceSets.test.java.srcDir "src/test/java"
+sourceSets.test.resources.srcDir "../core/assets"
 
 eclipse.project.name = appName + "-core"
 
