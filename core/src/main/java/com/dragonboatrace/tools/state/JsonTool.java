@@ -35,11 +35,13 @@ public class JsonTool {
     // TypeAdapterFactory for gson post processing hook (to hydrate the classes.)
     builder.registerTypeAdapterFactory(new GsonPostProcessingHook());
 
-    RuntimeTypeAdapterFactory<Entity> entityRuntimeTypeAdapterFactory = RuntimeTypeAdapterFactory.of(Entity.class);
+    RuntimeTypeAdapterFactory<Entity> entityRuntimeTypeAdapterFactory
+            = RuntimeTypeAdapterFactory.of(Entity.class);
     entityRuntimeTypeAdapterFactory.registerSubtype(Obstacle.class);
     entityRuntimeTypeAdapterFactory.registerSubtype(Boat.class);
 
-    RuntimeTypeAdapterFactory<Boat> boatRuntimeTypeAdapterFactory = RuntimeTypeAdapterFactory.of(Boat.class);
+    RuntimeTypeAdapterFactory<Boat> boatRuntimeTypeAdapterFactory
+            = RuntimeTypeAdapterFactory.of(Boat.class);
     boatRuntimeTypeAdapterFactory.registerSubtype(PlayerBoat.class);
     boatRuntimeTypeAdapterFactory.registerSubtype(ComputerBoat.class);
 

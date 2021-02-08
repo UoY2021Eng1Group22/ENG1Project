@@ -64,7 +64,7 @@ public enum ObstacleType {
   }
 
   /**
-   * Get the obstacle types texture
+   * Get the obstacle types texture.
    *
    * @return A string representing the path to the obstacles texture.
    */

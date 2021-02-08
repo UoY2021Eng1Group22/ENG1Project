@@ -36,7 +36,7 @@ public class FinishLine extends Entity implements PostProcessable {
    * @param playerPos    The distance the player has travelled in the race.
    * @param raceDistance The total distance of the race.
    * @param deltaTime    The time passed since the last frame.
-   * @param velY         The y-velocity of the entity it will move in respect to (Will be the player)
+   * @param velY         The y-velocity of the entity it will move toward (Will be the player)
    */
   public void update(float playerPos, float raceDistance, float deltaTime, float velY) {
     if (playerPos > (raceDistance * 0.8f)) {

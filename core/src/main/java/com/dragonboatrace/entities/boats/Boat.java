@@ -241,7 +241,8 @@ public abstract class Boat extends Entity implements PostProcessable {
   /**
    * Return a scalar to multiply the velocity by when using stamina.
    *
-   * @return A float between 0.25 and 1 which is then scaled by {@link com.dragonboatrace.tools.Settings#STAMINA_SPEED_DIVISION}.
+   * @return A float between 0.25 and 1 which is then scaled
+   *        by {@link com.dragonboatrace.tools.Settings#STAMINA_SPEED_DIVISION}.
    */
   protected float velocityPercentage() {
     double result = 0.25 + Math.log(this.stamina + 1) / 3;
@@ -250,16 +251,17 @@ public abstract class Boat extends Entity implements PostProcessable {
 
   /**
    * Get the amount of stamina to use for the current amount of stamina.
-   * <p>
-   * The amount of stamina that gets used per cycle is not linear. The more stamina you have the slower it is used,
+   *
+   * <p>The amount of stamina that gets used per cycle is not linear.
+   * The more stamina you have the slower it is used,
    * and the less stamina the faster.
    *
    * @return A float of how much stamina will be used.
    */
   protected float useStamina() {
     double result =
-        Math.pow(this.maxStamina, -this.stamina / (2 * this.maxStamina)) * this.staminaRate +
-            this.staminaRate + this.minBoostSpeed;
+        Math.pow(this.maxStamina, -this.stamina / (2 * this.maxStamina)) * this.staminaRate
+                + this.staminaRate + this.minBoostSpeed;
     return (float) result;
   }
 
@@ -270,8 +272,8 @@ public abstract class Boat extends Entity implements PostProcessable {
    */
   protected float regenerateStamina() {
     double result =
-        -1 * this.staminaRate * Math.pow(this.maxStamina, -this.stamina / (2 * this.maxStamina)) +
-            this.staminaRate + 1;
+        -1 * this.staminaRate * Math.pow(this.maxStamina, -this.stamina / (2 * this.maxStamina))
+                + this.staminaRate + 1;
     return (float) result / 10;
   }
 
@@ -327,7 +329,8 @@ public abstract class Boat extends Entity implements PostProcessable {
   }
 
   /**
-   * Check for collisions by getting the contents of the lane and checking their positions to the boat position.
+   * Check for collisions by getting the contents of the lane
+   * and checking their positions to the boat position.
    *
    * @return True if a collision occurred, False if no collision.
    */
@@ -340,7 +343,7 @@ public abstract class Boat extends Entity implements PostProcessable {
         obstacle.dispose();
         this.lane.removeObstacle(obstacle);
 
-        /**
+        /*
          * This switch case is new.
          * Switches on the obstacles texture (as each unique powerup has a unique texture)
          */
@@ -379,7 +382,8 @@ public abstract class Boat extends Entity implements PostProcessable {
             return false;
 
           default:
-            //if the player has a shield powerup, the damage and slowdown is blocked from regular obstacles.
+            //if the player has a shield powerup,
+            // the damage and slowdown is blocked from regular obstacles.
             if (!(this.shield)) {
               size--;
               this.health -= obstacle.getDamage();
@@ -398,13 +402,14 @@ public abstract class Boat extends Entity implements PostProcessable {
 
   /**
    * Update the vertical position of the boat onscreen.
-   * <p>
-   * This is not implemented in the generic Boat class and must be implemented in the specific Boat kind.
+   *
+   * <p>This is not implemented in the generic Boat class
+   * and must be implemented in the specific Boat kind.
    *
    * @param lineHeight   The height of the finish line Entity.
    * @param raceDistance The length of the race.
    */
-  public void updateYPosition(int lineHeight, int raceDistance) {
+  public void updateyPosition(int lineHeight, int raceDistance) {
 
   }
 
@@ -450,8 +455,9 @@ public abstract class Boat extends Entity implements PostProcessable {
   }
 
   /**
-   * Get the speed of the boat. <p>
-   * This is the speed property of the boat, not the speed at which it is moving.
+   * Get the speed of the boat.
+   *
+   * <p>This is the speed property of the boat, not the speed at which it is moving.
    *
    * @return The speed of the boat.
    */
@@ -514,7 +520,7 @@ public abstract class Boat extends Entity implements PostProcessable {
   }
 
   /**
-   * Get the boat time
+   * Get the boat time.
    *
    * @return A float of boat time
    */
@@ -523,7 +529,7 @@ public abstract class Boat extends Entity implements PostProcessable {
   }
 
   /**
-   * Set the boat time
+   * Set the boat time.
    *
    * @param nowTime The time passed since last call.
    */
@@ -532,7 +538,7 @@ public abstract class Boat extends Entity implements PostProcessable {
   }
 
   /**
-   * Get the total boat time
+   * Get the total boat time.
    *
    * @return A float of total boat time
    */

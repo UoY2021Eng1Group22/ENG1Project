@@ -53,7 +53,8 @@ public class Obstacle extends Entity {
   }
 
   /**
-   * Update the obstacle's position relative to the time passed since last frame and the velocity of the boat in that lane.
+   * Update the obstacle's position relative to the time passed
+   * since last frame and the velocity of the boat in that lane.
    *
    * @param deltaTime The time since last frame.
    * @param velY      The y-velocity of the boat in the same lane as the obstacle.

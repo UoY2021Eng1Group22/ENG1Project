@@ -92,7 +92,7 @@ public class Race implements PostProcessable {
    * @param game      The instance of the game.
    */
   public void update(float deltaTime, DragonBoatRace game) {
-    player.updateYPosition(this.theFinish.getHitBox().getHeight(), length);
+    player.updateyPosition(this.theFinish.getHitBox().getHeight(), length);
     player.update(deltaTime);
     theFinish.update(player.getDistanceTravelled(), this.length, deltaTime, player.getVelocity().y);
     if (player.getHealth() <= 0) {
@@ -101,7 +101,7 @@ public class Race implements PostProcessable {
     for (Boat boat : this.computerBoats) {
 
       ((ComputerBoat) boat)
-          .updateYPosition(player.getHitBox().getY(), player.getDistanceTravelled());
+          .updateyPosition(player.getHitBox().getY(), player.getDistanceTravelled());
       boat.update(deltaTime);
       if (boat.getDistanceTravelled() + this.theFinish.getHitBox().getHeight() >= this.length
           && boat.getTime() == 0) {
@@ -202,7 +202,8 @@ public class Race implements PostProcessable {
     for (float time : times) {
       for (Boat boatN : boats) {
         if (boatN.getTime() == time) {
-          System.out.println(String.format("boat %s time:%f  time time:%f ", boatN.getName(), boatN.getTime(), time));
+          System.out.println(String.format("boat %s time:%f  time time:%f ",
+                  boatN.getName(), boatN.getTime(), time));
           switch (times.indexOf(time) + 1) {
             case 1:
               if (game.getRound() == 4) {
@@ -270,6 +271,9 @@ public class Race implements PostProcessable {
     return this.player;
   }
 
+  /**
+   * Removes the current present boats.
+   */
   public void dispose() {
     for (Boat boat : this.computerBoats) {
       boat.dispose();
@@ -283,7 +287,8 @@ public class Race implements PostProcessable {
   @Override
   public void postProcess() {
     this.barrier = new Texture("line.png");
-    this.theFinish = new FinishLine(new Vector2(0, Gdx.graphics.getHeight()), Gdx.graphics.getWidth());
+    this.theFinish = new FinishLine(new Vector2(0,
+            Gdx.graphics.getHeight()), Gdx.graphics.getWidth());
   }
 
 }

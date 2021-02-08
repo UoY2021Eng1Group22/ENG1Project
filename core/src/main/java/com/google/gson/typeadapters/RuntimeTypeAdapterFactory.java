@@ -16,10 +16,6 @@
 
 package com.google.gson.typeadapters;
 
-import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -31,6 +27,11 @@ import com.google.gson.internal.Streams;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+
 
 /**
  * Adapts values whose runtime type may differ from their declaration type. This
@@ -57,6 +58,7 @@ import com.google.gson.stream.JsonWriter;
  *     Shape topShape;
  *   }
  * }</pre>
+ *
  * <p>Without additional type information, the serialized JSON is ambiguous. Is
  * the bottom shape in this drawing a rectangle or a diamond? <pre>   {@code
  *   {
@@ -115,7 +117,8 @@ import com.google.gson.stream.JsonWriter;
  *       .create();
  * }</pre>
  * Like {@code GsonBuilder}, this API supports chaining: <pre>   {@code
- *   RuntimeTypeAdapterFactory<Shape> shapeAdapterFactory = RuntimeTypeAdapterFactory.of(Shape.class)
+ *   RuntimeTypeAdapterFactory<Shape> shapeAdapterFactory
+ *   = RuntimeTypeAdapterFactory.of(Shape.class)
  *       .registerSubtype(Rectangle.class)
  *       .registerSubtype(Circle.class)
  *       .registerSubtype(Diamond.class);
@@ -154,7 +157,8 @@ public final class RuntimeTypeAdapterFactory<T> implements TypeAdapterFactory {
    * typeFieldName} as the type field name. Type field names are case sensitive.
    * {@code maintainType} flag decide if the type will be stored in pojo or not.
    */
-  public static <T> RuntimeTypeAdapterFactory<T> of(Class<T> baseType, String typeFieldName, boolean maintainType) {
+  public static <T> RuntimeTypeAdapterFactory<T>
+          of(Class<T> baseType, String typeFieldName, boolean maintainType) {
     return new RuntimeTypeAdapterFactory<T>(baseType, typeFieldName, maintainType);
   }
   

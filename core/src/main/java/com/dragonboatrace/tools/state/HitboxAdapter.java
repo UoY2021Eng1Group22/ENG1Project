@@ -10,6 +10,9 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import java.lang.reflect.Type;
 
+/**
+ * Converts a hitbox to format which can be saved into a json file.
+ */
 public class HitboxAdapter implements JsonSerializer<Hitbox>, JsonDeserializer<Hitbox> {
   @Override
   public Hitbox deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)

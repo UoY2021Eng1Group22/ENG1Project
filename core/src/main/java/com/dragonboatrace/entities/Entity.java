@@ -67,7 +67,8 @@ public abstract class Entity implements PostProcessable {
     resize.dispose();
 
     /* Make a new hit box at the entities position with its width and height */
-    this.hitbox = new Hitbox((int) position.x, (int) position.y, entityType.getWidth(), entityType.getHeight());
+    this.hitbox = new Hitbox((int) position.x,
+            (int) position.y, entityType.getWidth(), entityType.getHeight());
   }
 
   /**
@@ -118,7 +119,11 @@ public abstract class Entity implements PostProcessable {
     return entityType;
   }
 
-  // P2
+  /**
+   * Sets the appearance of the Entity.
+   *
+   * @param texture The name of the image in the files
+   */
   public void setTexture(String texture) {
     Pixmap full = new Pixmap(Gdx.files.local(texture));
     Pixmap resize = new Pixmap(entityType.getWidth(), entityType.getHeight(), full.getFormat());
@@ -134,7 +139,8 @@ public abstract class Entity implements PostProcessable {
   @Override
   public void postProcess() {
     System.out.println("hydrate - entity");
-    this.hitbox = new Hitbox((int) position.x, (int) position.y, entityType.getWidth(), entityType.getHeight());
+    this.hitbox = new Hitbox((int) position.x, (int) position.y,
+            entityType.getWidth(), entityType.getHeight());
   }
 
 }

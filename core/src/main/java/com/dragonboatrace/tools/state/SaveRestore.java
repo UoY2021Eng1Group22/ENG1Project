@@ -18,9 +18,10 @@ import java.io.Writer;
 // P2
 
 /**
- * SaveRestore class provides a simple workable interface for interacting with the Save/Restore functionality.
- * <p>
- * This class should only be instantiated in: RestoreScreen, MainGameScreen
+ * SaveRestore class provides a simple workable
+ * interface for interacting with the Save/Restore functionality.
+ *
+ * <p>This class should only be instantiated in: RestoreScreen, MainGameScreen
  */
 public class SaveRestore {
 
@@ -30,12 +31,22 @@ public class SaveRestore {
   private JsonWriter jsonWriter = null;
   private String temp;
 
+  /**
+   * Constructs a Gson, the three slots and attempts to fill the slots with save states.
+   */
   public SaveRestore() {
     this.json = JsonTool.buildGson();
     this.slots = new MainGameScreen[3]; // Temporary storage as there is no persistence yet.
     this.load();
   }
 
+  /**
+   * Places the current save state into a save slot.
+   *
+   * @param slot The number of slot 1-3 to store the save into
+   * @param screen The state of the screen
+   * @return writes the save slots to the user's file directory
+   */
   public boolean Save(int slot, MainGameScreen screen) {
 
     this.slots[slot] = screen;
@@ -46,6 +57,13 @@ public class SaveRestore {
     return this.flush();
   }
 
+  /**
+   * Sets the screen and all associated settings to the information from the slot.
+   *
+   * @param slot Slot number to restore from
+   * @param game Current game before the load
+   * @return the completed game screen
+   */
   public MainGameScreen Restore(int slot, DragonBoatRace game) {
     MainGameScreen screen = this.slots[slot];
 
@@ -87,8 +105,9 @@ public class SaveRestore {
         System.out.println("reading");
         MainGameScreen[] fileContent = json.fromJson(jsonReader, MainGameScreen[].class);
         System.out.println("read.");
-        if (fileContent != null)
+        if (fileContent != null) {
           this.slots = fileContent;
+        }
       } catch (JsonIOException ioEx) {
         Gdx.app.error("LOAD", "Problem from JSON I/O.", ioEx);
       } catch (JsonSyntaxException synEx) {
@@ -100,7 +119,8 @@ public class SaveRestore {
   }
 
   /**
-   * Is a certain slot empty?
+   * Checks if a slot is empty.
+   *
    * @param slot slot number.
    * @return if it is free.
    */
@@ -114,6 +134,7 @@ public class SaveRestore {
 
   /**
    * Flushes the game state array to disk.
+   *
    * @return if the flushing is successful.
    */
   private boolean flush() {

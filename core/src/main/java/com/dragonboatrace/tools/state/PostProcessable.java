@@ -6,7 +6,7 @@ package com.dragonboatrace.tools.state;
 /**
  * Common interface for objects that are post processable by gson.
  *
- * Only the interface is public.
+ * <p>Only the interface is public.
  */
 public interface PostProcessable {
   void postProcess();

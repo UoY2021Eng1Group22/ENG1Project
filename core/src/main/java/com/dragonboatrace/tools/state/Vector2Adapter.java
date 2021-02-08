@@ -11,7 +11,9 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import java.lang.reflect.Type;
 
-// helper class to (de)serialise gdx Vector2
+/**
+ * De-serialises a vector ready to be saved.
+ */
 public class Vector2Adapter implements JsonSerializer<Vector2>, JsonDeserializer<Vector2> {
 
   @Override

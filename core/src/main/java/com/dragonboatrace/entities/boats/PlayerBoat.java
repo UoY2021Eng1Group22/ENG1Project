@@ -33,13 +33,13 @@ public class PlayerBoat extends Boat implements PostProcessable {
   public void update(float deltaTime) {
     /* Allow the player to move if there wasn't a recent collision */
     if (!recentCollision) {
-      if ((Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) &&
-          this.position.x > this.lane.getHitbox().getX()) {
+      if ((Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A))
+              && this.position.x > this.lane.getHitbox().getX()) {
         this.velocity.set(-this.speed, this.velocity.y);
       } else if (
-          (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) &&
-              (this.position.x + this.entityType.getWidth()) <
-                  this.lane.getHitbox().getWidth() + this.lane.getHitbox().getX()) {
+          (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D))
+                  && (this.position.x + this.entityType.getWidth())
+                  < this.lane.getHitbox().getWidth() + this.lane.getHitbox().getX()) {
         this.velocity.set(this.speed, this.velocity.y);
       } else {
         this.velocity.set(0, this.velocity.y);
@@ -75,7 +75,8 @@ public class PlayerBoat extends Boat implements PostProcessable {
   }
 
   /**
-   * Renders the players boat with the word "Player" at the top of the lane to indicate which lane is the players.
+   * Renders the players boat with the word "Player"
+   * at the top of the lane to indicate which lane is the players.
    *
    * @param batch The SpriteBatch that the renders will be added to.
    */
@@ -86,18 +87,19 @@ public class PlayerBoat extends Boat implements PostProcessable {
   }
 
   /**
-   * Update the vertical position of the boat on-screen. Is related to the distance travelled in the race.
+   * Update the vertical position of the boat on-screen.
+   * Is related to the distance travelled in the race.
    *
    * @param lineHeight   The height of the finish line Entity.
    * @param raceDistance The length of the race.
    */
-  public void updateYPosition(int lineHeight, int raceDistance) {
+  public void updateyPosition(int lineHeight, int raceDistance) {
     if (this.distanceTravelled / (raceDistance) < 0.8f) {
       this.position.y = 100;
     } else {
-      this.position.y = (this.distanceTravelled - raceDistance * 0.8f) /
-          (raceDistance - lineHeight - raceDistance * 0.8f) * (Gdx.graphics.getHeight() - 100) +
-          100;
+      this.position.y = (this.distanceTravelled - raceDistance * 0.8f)
+              / (raceDistance - lineHeight - raceDistance * 0.8f)
+              * (Gdx.graphics.getHeight() - 100) + 100;
     }
   }
 

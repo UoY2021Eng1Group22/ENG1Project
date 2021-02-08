@@ -34,7 +34,8 @@ public class Lane {
   private final ArrayList<Float> randomWaitTimes;
 
   /**
-   * Creates a new lane at a position and with a width and uses the round number to change the number of obstacles.
+   * Creates a new lane at a position and with a width and
+   * uses the round number to change the number of obstacles.
    *
    * @param pos   The position of the lane in the screen.
    * @param width The width of the lane.
@@ -48,7 +49,8 @@ public class Lane {
   }
 
   /**
-   * Update the obstacles in the lane, remove any that are no longer on screen and replace them at a random time.
+   * Update the obstacles in the lane,
+   * remove any that are no longer on screen and replace them at a random time.
    *
    * @param deltaTime The time since the last frame.
    * @param velY      The y-velocity of the boat in the lane.
@@ -103,7 +105,7 @@ public class Lane {
   }
 
   /**
-   * Get the lanes hit box
+   * Get the lanes hit box.
    *
    * @return A {@link Hitbox} representing the lanes area.
    */
@@ -129,7 +131,7 @@ public class Lane {
   }
 
   /**
-   * Create a new random {@link Obstacle}
+   * Create a new random {@link Obstacle}.
    *
    * @return a new {@link Obstacle} in the lanes area.
    */
@@ -149,6 +151,9 @@ public class Lane {
     }
   }
 
+  /**
+   * Empties the list of obstacles.
+   */
   public void dispose() {
     for (Obstacle obst : obstacles) {
       obst.dispose();

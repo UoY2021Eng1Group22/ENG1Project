@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 public class Hitbox {
 
   /**
-   * The width of the hit box
+   * The width of the hit box.
    */
   private final int width;
   /**
@@ -48,8 +48,9 @@ public class Hitbox {
   }
 
   /**
-   * Move the hit box's position to the one specified, not additive.<p>
-   * Used to make sure the hit boxes position is the same as the entity it represents.
+   * Move the hit box's position to the one specified, not additive.
+   *
+   * <p>Used to make sure the hit boxes position is the same as the entity it represents.
    *
    * @param x The new x position.
    * @param y The new y position.
@@ -76,8 +77,8 @@ public class Hitbox {
    * @return A boolean of if the two hit boxes are intersecting.
    */
   public boolean collidesWith(Hitbox box) {
-    return this.x + this.width > box.getX() && this.x < box.getX() + box.getWidth() &&
-        this.y < box.getY() + box.getHeight() && this.y + this.height > box.getY();
+    return this.x + this.width > box.getX() && this.x < box.getX() + box.getWidth()
+            && this.y < box.getY() + box.getHeight() && this.y + this.height > box.getY();
   }
 
   /**
@@ -87,8 +88,8 @@ public class Hitbox {
    * @return A boolean of if the other hit box is partially outside of this hit box
    */
   public boolean leaves(Hitbox box) {
-    return this.x + this.width > box.getX() + box.getWidth() || this.x < box.getX() ||
-        this.y < box.getY() && this.y + this.height > box.getY();
+    return this.x + this.width > box.getX() + box.getWidth() || this.x < box.getX()
+            || this.y < box.getY() && this.y + this.height > box.getY();
   }
 
   /**

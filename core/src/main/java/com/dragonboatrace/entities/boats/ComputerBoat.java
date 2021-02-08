@@ -58,7 +58,8 @@ public class ComputerBoat extends Boat implements PostProcessable {
   private boolean waiting;
 
   /**
-   * Creates a computer boat with values from boat, in Lane lane, an identifying name and with a random speed.
+   * Creates a computer boat with values from boat,
+   * in Lane lane, an identifying name and with a random speed.
    *
    * @param boat           The BoatType to get values from.
    * @param lane           The lane the boat is racing in.
@@ -134,9 +135,10 @@ public class ComputerBoat extends Boat implements PostProcessable {
   }
 
   /**
-   * Renders the boat if it is onscreen, else will render the off-screen markers at their current x value.
-   * <p>
-   * Also performs {@link Boat}'s render after rendering the markers.
+   * Renders the boat if it is onscreen,
+   * else will render the off-screen markers at their current x value.
+   *
+   * <p>Also performs {@link Boat}'s render after rendering the markers.
    *
    * @param batch The SpriteBatch that the renders will be added to.
    */
@@ -152,12 +154,13 @@ public class ComputerBoat extends Boat implements PostProcessable {
   }
 
   /**
-   * Update the vertical position of the boat according to its distance travelled versus the distance travelled by the player.
+   * Update the vertical position of the boat according to
+   * its distance travelled versus the distance travelled by the player.
    *
    * @param playerY        The y position of the player on the screen.
    * @param playerDistance The distance travelled by the player.
    */
-  public void updateYPosition(float playerY, float playerDistance) {
+  public void updateyPosition(float playerY, float playerDistance) {
     float c = 100 - (playerDistance - this.distanceTravelled);
     if (playerY == 100) {
       this.position.y = c;
@@ -214,21 +217,19 @@ public class ComputerBoat extends Boat implements PostProcessable {
     /* Staying away from the edges */
     if (boatLeft - 10.0f < laneBox.getX()) {
       return 1;
-    } else if (boatLeft + this.getHitBox().getWidth() + 10.0f >
-        laneBox.getX() + laneBox.getWidth()) {
+    } else if (boatLeft + this.getHitBox().getWidth() + 10.0f
+            > laneBox.getX() + laneBox.getWidth()) {
       return -1;
     }
 
     /* If the boat and obstacle are aligned vertically */
     if (Float.compare(obstacleLeft, boatLeft) == 0) {
       return 0;
-    }
-    /* If the obstacle is more to the left of the boat */
-    else if (obstacleLeft < boatLeft) {
+      /* If the obstacle is more to the left of the boat */
+    } else if (obstacleLeft < boatLeft) {
       return 1;
-    }
-    /* If the obstacle is more the right of the boat */
-    else {
+      /* If the obstacle is more the right of the boat */
+    } else {
       return -1;
     }
   }
@@ -261,7 +262,8 @@ public class ComputerBoat extends Boat implements PostProcessable {
 
     System.out.println("hydrate - cboat");
 
-//    this.hitbox = new Hitbox((int) position.x, (int) position.y, entityType.getWidth(), entityType.getHeight());
+//    this.hitbox = new Hitbox((int) position.x,
+//    (int) position.y, entityType.getWidth(), entityType.getHeight());
 
 
     this.up = new Texture("up_arrow.png");
