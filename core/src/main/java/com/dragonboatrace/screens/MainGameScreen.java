@@ -27,15 +27,6 @@ import com.google.gson.annotations.Expose;
 public class MainGameScreen implements Screen, PostProcessable {
 
   /**
-   * The game instance.
-   */
-  @Expose
-  private DragonBoatRace game; // P2
-  /**
-   * Used to make sure the countdown happens at equal intervals.
-   */
-  private Timer timer; // P2 - hydrate
-  /**
    * The race instance.
    */
   @Expose
@@ -45,6 +36,15 @@ public class MainGameScreen implements Screen, PostProcessable {
    */
   @Expose
   private final ScrollingBackground background;
+  /**
+   * The game instance.
+   */
+  @Expose
+  private DragonBoatRace game; // P2
+  /**
+   * Used to make sure the countdown happens at equal intervals.
+   */
+  private Timer timer; // P2 - hydrate
   /**
    * Use to log the FPS for debugging.
    */
@@ -80,7 +80,9 @@ public class MainGameScreen implements Screen, PostProcessable {
   private boolean saveSuccess = false;
 
   // P2
-  /** Indication of if the game/race has started already. */
+  /**
+   * Indication of if the game/race has started already.
+   */
   @Expose // ?
   private boolean gameHasStarted = false;
 
@@ -234,16 +236,17 @@ public class MainGameScreen implements Screen, PostProcessable {
     FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
     FreeTypeFontGenerator.FreeTypeFontParameter parameter =
         new FreeTypeFontGenerator.FreeTypeFontParameter();
-//    parameter.size *= 10.0 / Settings.SCALAR;
+    //    parameter.size *= 10.0 / Settings.SCALAR;
     parameter.size *= 4.0 / Settings.SCALAR;
     parameter.color = new Color(0x7f7f7f7f);
     BitmapFont f = generator.generateFont(parameter);
 
     GlyphLayout g = new GlyphLayout();
     g.setText(f, "Press Esc to pause the game.");
-//    font.draw(game.getBatch(), "Press P to pause the game.", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight());
+    //    font.draw(game.getBatch(), "Press P to pause the game.", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight());
     // Gdx.graphics.getWidth() - layout.width - 100
-    f.draw(game.getBatch(), "Press Esc to pause the game.", Gdx.graphics.getWidth() - g.width - 32, g.height + 32);
+    f.draw(game.getBatch(), "Press Esc to pause the game.", Gdx.graphics.getWidth() - g.width - 32,
+        g.height + 32);
   }
 
   private void displayPaused(boolean paused) {
@@ -259,11 +262,11 @@ public class MainGameScreen implements Screen, PostProcessable {
     pauseBuilder.append("Press Esc to go back.\n");
     pauseBuilder.append("Press Q to quit the game.\n");
 
-    for (int i = 0; i <= 2; i++){
+    for (int i = 0; i <= 2; i++) {
       pauseBuilder.append(
           String.format(
               "Press %d to %s slot %d\n", i + 1,
-              this.saveRestore.slotIsFree(i) ? "save to":"overwrite",
+              this.saveRestore.slotIsFree(i) ? "save to" : "overwrite",
               i + 1
           )
       );
@@ -296,7 +299,8 @@ public class MainGameScreen implements Screen, PostProcessable {
     GlyphLayout g = new GlyphLayout();
 
     g.setText(f, statusText);
-    f.draw(game.getBatch(), statusText, (Gdx.graphics.getWidth() - g.width) / 3, layout.height + 16);
+    f.draw(game.getBatch(), statusText, (Gdx.graphics.getWidth() - g.width) / 3,
+        layout.height + 16);
   }
 
   @Override
@@ -338,18 +342,18 @@ public class MainGameScreen implements Screen, PostProcessable {
     return game;
   }
 
-  public Race getRace() {
-    return race;
+  public void setGame(DragonBoatRace game) {
+    this.game = game;
   }
 
   // P2
 
-  public ScrollingBackground getBackground() {
-    return background;
+  public Race getRace() {
+    return race;
   }
 
-  public void setGame(DragonBoatRace game) {
-    this.game = game;
+  public ScrollingBackground getBackground() {
+    return background;
   }
 
   @Override

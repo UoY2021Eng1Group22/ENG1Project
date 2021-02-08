@@ -59,7 +59,7 @@ class HelpScreen implements Screen { // P2 - No need to be public
    */
   private final Texture downArrow;
   /**
-   * GlyphLayout used for centering fonts
+   * GlyphLayout used for centering fonts.
    */
   private final GlyphLayout layout;
   /**

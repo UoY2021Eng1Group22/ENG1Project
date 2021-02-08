@@ -175,7 +175,8 @@ public abstract class Boat extends Entity implements PostProcessable {
   public Boat(BoatType boat, Lane lane, String name) {
     /* Get boat position from the position of the lane. */
     super(new Vector2(
-        lane.getHitbox().getX() + (lane.getHitbox().getWidth() - EntityType.BOAT.getWidth()) / 2.0f,
+        lane.getHitbox().getXpos() + (lane.getHitbox().getWidth()
+            - EntityType.BOAT.getWidth()) / 2.0f,
         100), new Vector2(), EntityType.BOAT, boat.getImageSrc());
     this.health = boat.getHealth();
     this.stamina = boat.getStamina();
@@ -242,7 +243,7 @@ public abstract class Boat extends Entity implements PostProcessable {
    * Return a scalar to multiply the velocity by when using stamina.
    *
    * @return A float between 0.25 and 1 which is then scaled
-   *        by {@link com.dragonboatrace.tools.Settings#STAMINA_SPEED_DIVISION}.
+   *     by {@link com.dragonboatrace.tools.Settings#STAMINA_SPEED_DIVISION}.
    */
   protected float velocityPercentage() {
     double result = 0.25 + Math.log(this.stamina + 1) / 3;
@@ -261,7 +262,7 @@ public abstract class Boat extends Entity implements PostProcessable {
   protected float useStamina() {
     double result =
         Math.pow(this.maxStamina, -this.stamina / (2 * this.maxStamina)) * this.staminaRate
-                + this.staminaRate + this.minBoostSpeed;
+            + this.staminaRate + this.minBoostSpeed;
     return (float) result;
   }
 
@@ -273,7 +274,7 @@ public abstract class Boat extends Entity implements PostProcessable {
   protected float regenerateStamina() {
     double result =
         -1 * this.staminaRate * Math.pow(this.maxStamina, -this.stamina / (2 * this.maxStamina))
-                + this.staminaRate + 1;
+            + this.staminaRate + 1;
     return (float) result / 10;
   }
 
@@ -317,12 +318,14 @@ public abstract class Boat extends Entity implements PostProcessable {
 
     layout.setText(healthFont, "Health:  XXX");
 
-    healthFont.draw(batch, "Health:  " + (int) this.getHealth(), this.lane.getHitbox().getX() + 5,
+    healthFont.draw(batch, "Health:  " + (int) this.getHealth(),
+        this.lane.getHitbox().getXpos() + 5,
         Gdx.graphics.getHeight() - 55);
 
     layout.setText(staminaFont, "Stamina: XXX");
 
-    staminaFont.draw(batch, "Stamina: " + (int) this.getStamina(), this.lane.getHitbox().getX() + 5,
+    staminaFont.draw(batch, "Stamina: " + (int) this.getStamina(),
+        this.lane.getHitbox().getXpos() + 5,
         Gdx.graphics.getHeight() - 105);
 
     super.render(batch);

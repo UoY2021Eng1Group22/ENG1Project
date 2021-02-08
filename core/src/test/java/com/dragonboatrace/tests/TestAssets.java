@@ -1,6 +1,6 @@
 package com.dragonboatrace.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 
 import com.badlogic.gdx.Gdx;
@@ -75,7 +75,7 @@ public class TestAssets {
         "up_arrow.png"
     };
 
-    for (String fn: fileNames) {
+    for (String fn : fileNames) {
       assertTrue(String.format("%s does not exist.", fn), Gdx.files.internal(fn).exists());
     }
 

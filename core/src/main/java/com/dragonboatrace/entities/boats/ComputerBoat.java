@@ -20,21 +20,18 @@ import java.util.concurrent.ThreadLocalRandom;
 public class ComputerBoat extends Boat implements PostProcessable {
 
   /**
-   * The area in which the computer boat will look for obstacles to avoid.
-   */
-  private Hitbox moveArea; // P2 - hydrate
-
-  /**
-   * The x-offset of the moveArea as the area is equal on both sides of the boat.
-   */
-  private int xOffset; // P2 - hydrate
-
-  /**
    * The speed of the boat.
    */
   @Expose
-  private int pickSpeedValue;
-
+  private final int pickSpeedValue;
+  /**
+   * The area in which the computer boat will look for obstacles to avoid.
+   */
+  private Hitbox moveArea; // P2 - hydrate
+  /**
+   * The x-offset of the moveArea as the area is equal on both sides of the boat.
+   */
+  private int xoffset; // P2 - hydrate
   /**
    * The texture for the up indicator when the Computer is off the screen but above.
    */
@@ -70,10 +67,10 @@ public class ComputerBoat extends Boat implements PostProcessable {
     super(boat, lane, name);
     this.speed = this.pickSpeed(pickSpeedValue);
     this.pickSpeedValue = pickSpeedValue; // P2
-    this.xOffset = this.getHitBox().getWidth() / pickSpeedValue;
-    int yOffset = this.getHitBox().getHeight() / pickSpeedValue;
-    this.moveArea = new Hitbox(this.position.x - xOffset, this.position.y,
-        this.getHitBox().getWidth() + 2 * xOffset, this.getHitBox().getHeight() + 2 * yOffset);
+    this.xoffset = this.getHitBox().getWidth() / pickSpeedValue;
+    int yoffset = this.getHitBox().getHeight() / pickSpeedValue;
+    this.moveArea = new Hitbox(this.position.x - xoffset, this.position.y,
+        this.getHitBox().getWidth() + 2 * xoffset, this.getHitBox().getHeight() + 2 * yoffset);
     this.up = new Texture("up_arrow.png");
     this.down = new Texture("down_arrow.png");
     this.randomWait = 0;
@@ -130,7 +127,7 @@ public class ComputerBoat extends Boat implements PostProcessable {
       this.waiting = false;
     }
 
-    this.moveArea.move(position.x - this.xOffset, position.y);
+    this.moveArea.move(position.x - this.xoffset, position.y);
     super.update(deltaTime);
   }
 
@@ -215,10 +212,10 @@ public class ComputerBoat extends Boat implements PostProcessable {
     float boatLeft = this.position.x;
 
     /* Staying away from the edges */
-    if (boatLeft - 10.0f < laneBox.getX()) {
+    if (boatLeft - 10.0f < laneBox.getXpos()) {
       return 1;
     } else if (boatLeft + this.getHitBox().getWidth() + 10.0f
-            > laneBox.getX() + laneBox.getWidth()) {
+        > laneBox.getXpos() + laneBox.getWidth()) {
       return -1;
     }
 
@@ -260,17 +257,14 @@ public class ComputerBoat extends Boat implements PostProcessable {
 
     super.postProcess();
 
-//    this.hitbox = new Hitbox((int) position.x, (int) position.y, entityType.getWidth(), entityType.getHeight());
-
-
     this.up = new Texture("up_arrow.png");
     this.down = new Texture("down_arrow.png");
 
-    this.xOffset = this.getHitBox().getWidth() / this.pickSpeedValue;
-    int yOffset = this.getHitBox().getHeight() / this.pickSpeedValue;
+    this.xoffset = this.getHitBox().getWidth() / this.pickSpeedValue;
+    int yoffset = this.getHitBox().getHeight() / this.pickSpeedValue;
 
-    this.moveArea = new Hitbox(this.position.x - xOffset, this.position.y,
-        this.getHitBox().getWidth() + 2 * xOffset, this.getHitBox().getHeight() + 2 * yOffset);
+    this.moveArea = new Hitbox(this.position.x - xoffset, this.position.y,
+        this.getHitBox().getWidth() + 2 * xoffset, this.getHitBox().getHeight() + 2 * yoffset);
   }
 
 }

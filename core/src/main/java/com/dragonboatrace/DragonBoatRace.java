@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragonboatrace.screens.MainMenuScreen;
 import com.dragonboatrace.tools.Settings;
 import com.dragonboatrace.tools.state.PostProcessable;
-import com.dragonboatrace.tools.state.SaveRestore;
 import com.google.gson.annotations.Expose;
 import java.util.ArrayList;
 

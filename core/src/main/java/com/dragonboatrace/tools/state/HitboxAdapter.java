@@ -33,8 +33,8 @@ public class HitboxAdapter implements JsonSerializer<Hitbox>, JsonDeserializer<H
   public JsonElement serialize(Hitbox src, Type typeOfSrc, JsonSerializationContext context) {
     JsonObject jsonObject = new JsonObject();
 
-    jsonObject.addProperty("x", src.getX());
-    jsonObject.addProperty("y", src.getY());
+    jsonObject.addProperty("x", src.getXpos());
+    jsonObject.addProperty("y", src.getYpos());
     jsonObject.addProperty("height", src.getHeight());
     jsonObject.addProperty("width", src.getWidth());
 

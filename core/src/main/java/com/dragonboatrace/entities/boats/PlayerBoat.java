@@ -34,12 +34,12 @@ public class PlayerBoat extends Boat implements PostProcessable {
     /* Allow the player to move if there wasn't a recent collision */
     if (!recentCollision) {
       if ((Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A))
-              && this.position.x > this.lane.getHitbox().getX()) {
+          && this.position.x > this.lane.getHitbox().getXpos()) {
         this.velocity.set(-this.speed, this.velocity.y);
       } else if (
           (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D))
-                  && (this.position.x + this.entityType.getWidth())
-                  < this.lane.getHitbox().getWidth() + this.lane.getHitbox().getX()) {
+              && (this.position.x + this.entityType.getWidth())
+              < this.lane.getHitbox().getWidth() + this.lane.getHitbox().getXpos()) {
         this.velocity.set(this.speed, this.velocity.y);
       } else {
         this.velocity.set(0, this.velocity.y);
@@ -82,7 +82,7 @@ public class PlayerBoat extends Boat implements PostProcessable {
    */
   public void render(SpriteBatch batch) {
     layout.setText(nameFont, this.name);
-    nameFont.draw(batch, this.name, this.lane.getHitbox().getX() + 5, Gdx.graphics.getHeight() - 5);
+    nameFont.draw(batch, this.name, this.lane.getHitbox().getXpos() + 5, Gdx.graphics.getHeight() - 5);
     super.render(batch);
   }
 
@@ -98,8 +98,8 @@ public class PlayerBoat extends Boat implements PostProcessable {
       this.position.y = 100;
     } else {
       this.position.y = (this.distanceTravelled - raceDistance * 0.8f)
-              / (raceDistance - lineHeight - raceDistance * 0.8f)
-              * (Gdx.graphics.getHeight() - 100) + 100;
+          / (raceDistance - lineHeight - raceDistance * 0.8f)
+          * (Gdx.graphics.getHeight() - 100) + 100;
     }
   }
 

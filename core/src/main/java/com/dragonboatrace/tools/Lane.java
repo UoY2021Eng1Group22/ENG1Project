@@ -137,7 +137,7 @@ public class Lane {
    */
   private Obstacle randomObstacle() {
     int rand = ThreadLocalRandom.current().nextInt(0, ObstacleType.values().length);
-    return new Obstacle(ObstacleType.values()[rand], this.area.getX(), this.area.getWidth());
+    return new Obstacle(ObstacleType.values()[rand], this.area.getXpos(), this.area.getWidth());
   }
 
   /**

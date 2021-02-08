@@ -45,10 +45,10 @@ public abstract class Entity implements PostProcessable {
   /**
    * Creates a new Entity at a position with a starting velocity, a entity type and a texture.
    *
-   * @param position The initial position of the entity.
-   * @param velocity The initial velocity of the entity.
-   * @param entityType     The type of entity.
-   * @param texture  The texture of the entity.
+   * @param position   The initial position of the entity.
+   * @param velocity   The initial velocity of the entity.
+   * @param entityType The type of entity.
+   * @param texture    The texture of the entity.
    */
   public Entity(Vector2 position, Vector2 velocity, EntityType entityType, String texture) {
     this.position = position;
@@ -68,7 +68,7 @@ public abstract class Entity implements PostProcessable {
 
     /* Make a new hit box at the entities position with its width and height */
     this.hitbox = new Hitbox((int) position.x,
-            (int) position.y, entityType.getWidth(), entityType.getHeight());
+        (int) position.y, entityType.getWidth(), entityType.getHeight());
   }
 
   /**
@@ -97,29 +97,6 @@ public abstract class Entity implements PostProcessable {
   }
 
   /**
-   * The hit box of the entity.
-   *
-   * @return A hit box of the entity.
-   */
-  public Hitbox getHitBox() {
-    return this.hitbox;
-  }
-
-  // exposing more properties
-
-  public Vector2 getPosition() {
-    return position;
-  }
-
-  public Vector2 getVelocity() {
-    return velocity;
-  }
-
-  public EntityType getEntityType() {
-    return entityType;
-  }
-
-  /**
    * Sets the appearance of the Entity.
    *
    * @param texture The name of the image in the files
@@ -133,6 +110,29 @@ public abstract class Entity implements PostProcessable {
     this.texture = new Texture(resize);
   }
 
+  // exposing more properties
+
+  /**
+   * The hit box of the entity.
+   *
+   * @return A hit box of the entity.
+   */
+  public Hitbox getHitBox() {
+    return this.hitbox;
+  }
+
+  public Vector2 getPosition() {
+    return position;
+  }
+
+  public Vector2 getVelocity() {
+    return velocity;
+  }
+
+  public EntityType getEntityType() {
+    return entityType;
+  }
+
   // P2
   // when deserialising, some information may not be deserialised back into place.
   // this function hydrates the incomplete deserialised object.
@@ -140,7 +140,7 @@ public abstract class Entity implements PostProcessable {
   public void postProcess() {
 
     this.hitbox = new Hitbox((int) position.x, (int) position.y,
-            entityType.getWidth(), entityType.getHeight());
+        entityType.getWidth(), entityType.getHeight());
   }
 
 }

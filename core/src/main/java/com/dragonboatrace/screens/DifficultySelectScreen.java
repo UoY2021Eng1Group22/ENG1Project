@@ -55,7 +55,8 @@ public class DifficultySelectScreen implements Screen {
 
 
   /**
-   * Instance of the main game, used to have a collective spritebatch which gives better performance.
+   * Instance of the main game, used to have a collective spritebatch
+   * which gives better performance.
    */
   private final DragonBoatRace game;
 
@@ -127,20 +128,20 @@ public class DifficultySelectScreen implements Screen {
 
     float scale = ((float) this.buttonWidth / EntityType.BOAT.getWidth()) / 2.0f;
 
-    this.game.getBatch().draw(this.easyImage, this.easyButton.getHitBox().getX() +
-            ((this.easyButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f),
+    this.game.getBatch().draw(this.easyImage, this.easyButton.getHitBox().getXpos()
+            + ((this.easyButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f),
         150 + EntityType.BUTTON.getHeight(), this.buttonWidth / 2f,
         EntityType.BOAT.getHeight() * scale);
     this.easyButton.render(this.game.getBatch());
 
-    this.game.getBatch().draw(this.mediumImage, this.mediumButton.getHitBox().getX() +
-            ((this.mediumButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f),
+    this.game.getBatch().draw(this.mediumImage, this.mediumButton.getHitBox().getXpos()
+            + ((this.mediumButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f),
         150 + EntityType.BUTTON.getHeight(), this.buttonWidth / 2f,
         EntityType.BOAT.getHeight() * scale);
     this.mediumButton.render(this.game.getBatch());
 
-    this.game.getBatch().draw(this.hardImage, this.hardButton.getHitBox().getX() +
-            ((this.hardButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f),
+    this.game.getBatch().draw(this.hardImage, this.hardButton.getHitBox().getXpos()
+            + ((this.hardButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f),
         150 + EntityType.BUTTON.getHeight(), this.buttonWidth / 2f,
         EntityType.BOAT.getHeight() * scale);
     this.hardButton.render(this.game.getBatch());

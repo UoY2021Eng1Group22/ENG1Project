@@ -101,7 +101,7 @@ public class Race implements PostProcessable {
     for (Boat boat : this.computerBoats) {
 
       ((ComputerBoat) boat)
-          .updateyPosition(player.getHitBox().getY(), player.getDistanceTravelled());
+          .updateyPosition(player.getHitBox().getYpos(), player.getDistanceTravelled());
       boat.update(deltaTime);
       if (boat.getDistanceTravelled() + this.theFinish.getHitBox().getHeight() >= this.length
           && boat.getTime() == 0) {
@@ -280,7 +280,7 @@ public class Race implements PostProcessable {
   public void postProcess() {
     this.barrier = new Texture("line.png");
     this.theFinish = new FinishLine(new Vector2(0,
-            Gdx.graphics.getHeight()), Gdx.graphics.getWidth());
+        Gdx.graphics.getHeight()), Gdx.graphics.getWidth());
   }
 
 }

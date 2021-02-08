@@ -1,7 +1,6 @@
 package com.dragonboatrace.tools.state;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Json;
 import com.dragonboatrace.entities.Entity;
 import com.dragonboatrace.entities.Obstacle;
 import com.dragonboatrace.entities.boats.Boat;
@@ -36,12 +35,12 @@ public class JsonTool {
     builder.registerTypeAdapterFactory(new GsonPostProcessingHook());
 
     RuntimeTypeAdapterFactory<Entity> entityRuntimeTypeAdapterFactory
-            = RuntimeTypeAdapterFactory.of(Entity.class);
+        = RuntimeTypeAdapterFactory.of(Entity.class);
     entityRuntimeTypeAdapterFactory.registerSubtype(Obstacle.class);
     entityRuntimeTypeAdapterFactory.registerSubtype(Boat.class);
 
     RuntimeTypeAdapterFactory<Boat> boatRuntimeTypeAdapterFactory
-            = RuntimeTypeAdapterFactory.of(Boat.class);
+        = RuntimeTypeAdapterFactory.of(Boat.class);
     boatRuntimeTypeAdapterFactory.registerSubtype(PlayerBoat.class);
     boatRuntimeTypeAdapterFactory.registerSubtype(ComputerBoat.class);
 

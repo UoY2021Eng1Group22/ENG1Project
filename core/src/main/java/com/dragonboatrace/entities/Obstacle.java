@@ -2,7 +2,6 @@ package com.dragonboatrace.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import com.dragonboatrace.tools.state.PostProcessable;
 import com.google.gson.annotations.Expose;
 import java.util.concurrent.ThreadLocalRandom;
 

@@ -50,13 +50,13 @@ public class Button extends Entity {
    */
   public boolean isHovering() {
     return (Gdx.input.getX() < this.position.x + this.entityType.getWidth()
-            &&
-            Gdx.input.getX() > this.position.x
-            &&
-            Gdx.graphics.getHeight() - Gdx.input.getY()
-                    < this.position.y + this.entityType.getHeight()
-            &&
-            Gdx.graphics.getHeight() - Gdx.input.getY() > this.position.y);
+        &&
+        Gdx.input.getX() > this.position.x
+        &&
+        Gdx.graphics.getHeight() - Gdx.input.getY()
+            < this.position.y + this.entityType.getHeight()
+        &&
+        Gdx.graphics.getHeight() - Gdx.input.getY() > this.position.y);
   }
 
 }

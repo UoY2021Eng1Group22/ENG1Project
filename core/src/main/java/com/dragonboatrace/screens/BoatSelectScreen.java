@@ -62,7 +62,8 @@ public class BoatSelectScreen implements Screen {
   private final Button enduranceButton;
 
   /**
-   * Instance of the main game, used to have a collective spritebatch which gives better performance.
+   * Instance of the main game, used to have a collective spritebatch which
+   * gives better performance.
    */
   private final DragonBoatRace game;
 
@@ -134,26 +135,26 @@ public class BoatSelectScreen implements Screen {
 
     float scale = ((float) this.buttonWidth / EntityType.BOAT.getWidth()) / 2.0f;
 
-    this.game.getBatch().draw(this.fastImage, this.fastButton.getHitBox().getX() +
-            ((this.fastButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f),
+    this.game.getBatch().draw(this.fastImage, this.fastButton.getHitBox().getXpos()
+            + ((this.fastButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f),
         150 + EntityType.BUTTON.getHeight(), this.buttonWidth / 2f,
         EntityType.BOAT.getHeight() * scale);
     this.fastButton.render(this.game.getBatch());
 
-    this.game.getBatch().draw(this.agileImage, this.agileButton.getHitBox().getX() +
-            ((this.agileButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f),
+    this.game.getBatch().draw(this.agileImage, this.agileButton.getHitBox().getXpos()
+            + ((this.agileButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f),
         150 + EntityType.BUTTON.getHeight(), this.buttonWidth / 2f,
         EntityType.BOAT.getHeight() * scale);
     this.agileButton.render(this.game.getBatch());
 
-    this.game.getBatch().draw(this.strongImage, this.strongButton.getHitBox().getX() +
-            ((this.strongButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f),
+    this.game.getBatch().draw(this.strongImage, this.strongButton.getHitBox().getXpos()
+            + ((this.strongButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f),
         150 + EntityType.BUTTON.getHeight(), this.buttonWidth / 2f,
         EntityType.BOAT.getHeight() * scale);
     this.strongButton.render(this.game.getBatch());
 
-    this.game.getBatch().draw(this.enduranceImage, this.enduranceButton.getHitBox().getX() +
-            ((this.enduranceButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f),
+    this.game.getBatch().draw(this.enduranceImage, this.enduranceButton.getHitBox().getXpos()
+            + ((this.enduranceButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f),
         150 + EntityType.BUTTON.getHeight(), this.buttonWidth / 2f,
         EntityType.BOAT.getHeight() * scale);
     this.enduranceButton.render(this.game.getBatch());

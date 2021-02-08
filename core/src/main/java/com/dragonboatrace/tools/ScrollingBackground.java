@@ -14,16 +14,16 @@ import com.google.gson.annotations.Expose;
 public class ScrollingBackground implements PostProcessable {
 
   /**
-   * The texture to use as the background.
-   */
-  private Texture image; // P2 - hydrate
-
-  // P2: checkstyle
-  /**
    * The x position that both the images use to align vertically.
    */
   @Expose // P2
-  private float xposition;
+  private final float xposition;
+
+  // P2: checkstyle
+  /**
+   * The texture to use as the background.
+   */
+  private Texture image; // P2 - hydrate
   /**
    * The y position of the first image.
    */
@@ -52,6 +52,7 @@ public class ScrollingBackground implements PostProcessable {
   }
 
   // P2
+
   /**
    * Creates a ScrollingBackground but is scrolled to a specific position.
    */

@@ -3,7 +3,6 @@ package com.dragonboatrace.tools.state;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.GdxRuntimeException;
-import com.badlogic.gdx.utils.Json;
 import com.dragonboatrace.DragonBoatRace;
 import com.dragonboatrace.screens.MainGameScreen;
 import com.google.gson.Gson;
@@ -43,15 +42,15 @@ public class SaveRestore {
   /**
    * Places the current save state into a save slot.
    *
-   * @param slot The number of slot 1-3 to store the save into
+   * @param slot   The number of slot 1-3 to store the save into
    * @param screen The state of the screen
    * @return writes the save slots to the user's file directory
    */
   public boolean Save(int slot, MainGameScreen screen) {
 
     this.slots[slot] = screen;
-//    Json j = JsonTool.getJson();
-//    temp = j.toJson(screen);
+    //    Json j = JsonTool.getJson();
+    //    temp = j.toJson(screen);
 
     // flush / serialise
     return this.flush();

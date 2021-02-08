@@ -25,23 +25,23 @@ public class Hitbox {
   /**
    * The x position of the bottom left corner.
    */
-  private float x;
+  private float xpos;
   /**
    * The y position of the bottom left corner.
    */
-  private float y;
+  private float ypos;
 
   /**
    * Create a new hit box at a specified position with a width and height.
    *
-   * @param x      The x position of the bottom left corner.
-   * @param y      The y position of the bottom left corner.
+   * @param xpos      The x position of the bottom left corner.
+   * @param ypos      The y position of the bottom left corner.
    * @param width  The width of the hit box.
    * @param height The height of the hit box
    */
-  public Hitbox(float x, float y, int width, int height) {
-    this.x = x;
-    this.y = y;
+  public Hitbox(float xpos, float ypos, int width, int height) {
+    this.xpos = xpos;
+    this.ypos = ypos;
     this.width = width;
     this.height = height;
     renderer = new ShapeRenderer();
@@ -56,8 +56,8 @@ public class Hitbox {
    * @param y The new y position.
    */
   public void move(float x, float y) {
-    this.x = x;
-    this.y = y;
+    this.xpos = x;
+    this.ypos = y;
   }
 
   /**
@@ -66,7 +66,7 @@ public class Hitbox {
   public void render() {
     renderer.begin(ShapeRenderer.ShapeType.Line);
     renderer.setColor(Color.RED);
-    renderer.rect(this.x, this.y, this.width, this.height);
+    renderer.rect(this.xpos, this.ypos, this.width, this.height);
     renderer.end();
   }
 
@@ -77,8 +77,8 @@ public class Hitbox {
    * @return A boolean of if the two hit boxes are intersecting.
    */
   public boolean collidesWith(Hitbox box) {
-    return this.x + this.width > box.getX() && this.x < box.getX() + box.getWidth()
-            && this.y < box.getY() + box.getHeight() && this.y + this.height > box.getY();
+    return this.xpos + this.width > box.getXpos() && this.xpos < box.getXpos() + box.getWidth()
+        && this.ypos < box.getYpos() + box.getHeight() && this.ypos + this.height > box.getYpos();
   }
 
   /**
@@ -88,8 +88,8 @@ public class Hitbox {
    * @return A boolean of if the other hit box is partially outside of this hit box
    */
   public boolean leaves(Hitbox box) {
-    return this.x + this.width > box.getX() + box.getWidth() || this.x < box.getX()
-            || this.y < box.getY() && this.y + this.height > box.getY();
+    return this.xpos + this.width > box.getXpos() + box.getWidth() || this.xpos < box.getXpos()
+        || this.ypos < box.getYpos() && this.ypos + this.height > box.getYpos();
   }
 
   /**
@@ -97,8 +97,8 @@ public class Hitbox {
    *
    * @return A float of the x position of the bottom left corner.
    */
-  public float getX() {
-    return this.x;
+  public float getXpos() {
+    return this.xpos;
   }
 
   /**
@@ -106,8 +106,8 @@ public class Hitbox {
    *
    * @return A float of the y position of the bottom left corner.
    */
-  public float getY() {
-    return this.y;
+  public float getYpos() {
+    return this.ypos;
   }
 
   /**
