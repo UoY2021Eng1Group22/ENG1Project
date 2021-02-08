@@ -12,11 +12,11 @@ public enum ObstacleType {
   LEAF("leaf.png", 75, 5),
 
   // These below are new
-  HEAL("heal.png", 50, -30),
-  SPEED("speed.png", 50, 0),
-  STAMINA("stamina.png", 50, 0),
-  SHIELD("shield.png", 50, 0),
-  AGILITY("agility.png", 50, 0);
+  HEAL("Heal.png", 50, -30),
+  SPEED("Speed.png", 50, 0),
+  STAMINA("Stamina.png", 50, 0),
+  SHIELD("Shield.png", 50, 0),
+  AGILITY("Agility.png", 50, 0);
 
 
   /**
