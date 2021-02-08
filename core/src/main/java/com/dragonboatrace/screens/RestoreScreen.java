@@ -34,7 +34,7 @@ class RestoreScreen implements Screen {
         availableSlots[i] = new Button(
             new Vector2(
                 (Gdx.graphics.getWidth() - EntityType.BUTTON.getWidth()) / 2f,
-                ((float) i * 250 + Gdx.graphics.getHeight() - 100) / Settings.SCALAR),
+                ((float) i * Gdx.graphics.getHeight()/5.0f + Gdx.graphics.getHeight() / 4.0f) / Settings.SCALAR),
             String.format("slot%d_button_active.png", (i + 1)),
             String.format("slot%d_button_inactive.png", (i + 1))
         );
