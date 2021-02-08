@@ -95,16 +95,13 @@ public class SaveRestore {
     }
 
     if (r != null) {
-      System.out.println("json-reader");
       this.jsonReader = this.json.newJsonReader(r);
     }
 
     if (jsonReader != null) {
 
       try {
-        System.out.println("reading");
         MainGameScreen[] fileContent = json.fromJson(jsonReader, MainGameScreen[].class);
-        System.out.println("read.");
         if (fileContent != null) {
           this.slots = fileContent;
         }

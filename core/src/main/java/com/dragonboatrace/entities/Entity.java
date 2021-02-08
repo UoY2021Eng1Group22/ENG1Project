@@ -138,7 +138,7 @@ public abstract class Entity implements PostProcessable {
   // this function hydrates the incomplete deserialised object.
   @Override
   public void postProcess() {
-    System.out.println("hydrate - entity");
+
     this.hitbox = new Hitbox((int) position.x, (int) position.y,
             entityType.getWidth(), entityType.getHeight());
   }

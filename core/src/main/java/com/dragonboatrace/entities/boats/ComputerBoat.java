@@ -260,10 +260,7 @@ public class ComputerBoat extends Boat implements PostProcessable {
 
     super.postProcess();
 
-    System.out.println("hydrate - cboat");
-
-//    this.hitbox = new Hitbox((int) position.x,
-//    (int) position.y, entityType.getWidth(), entityType.getHeight());
+//    this.hitbox = new Hitbox((int) position.x, (int) position.y, entityType.getWidth(), entityType.getHeight());
 
 
     this.up = new Texture("up_arrow.png");

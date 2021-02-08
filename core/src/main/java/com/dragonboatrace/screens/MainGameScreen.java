@@ -189,9 +189,6 @@ public class MainGameScreen implements Screen, PostProcessable {
 
       if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
 
-        System.out.println("Quit");
-        System.out.println(game);
-
         this.game.setScreen(new MainMenuScreen(game));
 
       } else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)) {
